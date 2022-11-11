@@ -1,4 +1,5 @@
 //contains definitions for BST stuff
+//feel free to make changes as needed
 
 class provider_node
 {   
