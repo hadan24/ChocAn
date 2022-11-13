@@ -1,6 +1,6 @@
 //contains definitions for BST stuff
 //feel free to make changes as needed
-
+/*
 class provider_node
 {   
     public:
@@ -48,3 +48,4 @@ class BST_member
     private:
         member_node * root;
 };
+*/
