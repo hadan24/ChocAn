@@ -5,7 +5,7 @@
 #include <string>
 #include <cstdlib>
 #include <cctype>
-#include "bst.h"
+using namespace std;
 
 class model
 {
@@ -31,6 +31,30 @@ class model
         string state;
         int zipcode;
         string email;
+};
+
+class service_list
+{
+    public:
+        service_list();
+        service_list(const service_list & copy); //copy constructor, if needed
+    
+        void input();
+        void display() const;
+        void update_service_info();
+
+        void print_report_provider();
+        void print_report_member(); //print and write EFT report to file
+        bool verify_service_code();
+        void update_comments();
+
+    protected:
+        int service_code;
+        float service_cost;
+        string service_name;
+        string comments;
+        string DOS; //date of service
+        string current_date;
 };
 
 class provider: public model
@@ -86,64 +110,11 @@ class member: public model
         void write_reports();
 
         //operator overloading
-        bool member::operator<(const member & to_compare); //sorting by ID member
+        bool operator<(const member & to_compare); //sorting by ID member
 
     protected:
         string status_mem;
         int member_ID;
         float fee_mem;
         float overdue_fee;
-};
-
-class manager
-{
-    public:
-        manager();
-        manager(const manager & copy); //copy constructor, if needed
-        ~manager();
-        //add members or providers
-        void add_member();
-        void add_provider();
-
-        //remove members or providers, based on ID
-        bool remove_provider(int ID);
-        bool remove_member(int ID);
-
-        bool search_provider(string);
-        bool search_member(string);
-
-        void display() const;
-        void read() const;
-        void update_info();
-        void retrieve();
-        void write_report(); //writing EFT data to disk
-
-    private:
-        string manager_ID;
-        BST_provider * manage_p;
-        BST_member * manage_m;
-};
-
-class service_list
-{
-    public:
-        service_list();
-        service_list(const service_list & copy); //copy constructor, if needed
-    
-        void input();
-        void display() const;
-        void update_service_info();
-
-        void print_report_provider();
-        void print_report_member(); //print and write EFT report to file
-        bool verify_service_code();
-        void update_comments();
-
-    protected:
-        int service_code;
-        float service_cost;
-        string service_name;
-        string comments;
-        string DOS; //date of service
-        string current_date;
 };
