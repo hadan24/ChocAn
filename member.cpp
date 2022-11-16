@@ -1,7 +1,7 @@
-#include <chocan.h>
+#include "chocan.h"
 
 // initialize
-member::member() : status_mem("false"), member_ID(000), fee_mem(000), overdue_fee(000), validity_mem(false)
+member::member() : status_mem("false"), member_ID(000), fee_mem(000), overdue_fee(000)
 {
 }
 
@@ -38,6 +38,18 @@ void member::display() const
 {
     // same input () we need to call the function from the model to display some info
     // model::display();
+    cout << "\n\tThe ID of the membership:  " << member_ID;
+
+    cout << "\n\tThe status of the membership: ";
+    if (status_mem)
+        cout << " VALID!";
+    else 
+        cout << "INVALID!";
+
+    cout << "\n\tThe fee of the membership:  "<< fee_mem;
+
+    cout << "\n\tThe overdue fee of this membership:  "<< overdue_fee;
+
 }
 
 // verify ID number
@@ -59,13 +71,14 @@ bool member::update_status()
         {
             this->status_mem = true;
             cout << "\n\t The updated status of the membership: VALID! ";
+            return true;
         }
         else if (choice == 2)
         {
             this->status_mem = false;
             cout << "\n\t The updated status of the membership: VALID! ";
+            return true;
         }
-        while (choice != 1 && choice != 2)
-            ;
-    }
+    }while (choice != 1 && choice != 2);
+    return false;
 }

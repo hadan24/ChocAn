@@ -15,7 +15,7 @@ class model
         virtual ~model();
         virtual void input();
         virtual void display() const;
-        virtual void read() const;
+        virtual void read_file(const string& file_name) const;
         virtual void update_info();
 
         void update_address(string new_address, string new_city, string new_state, int new_zip);
