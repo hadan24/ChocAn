@@ -16,12 +16,32 @@ member::~member()
     // since we dont allocate memory of any variables, nothing here
 }
 
-void member::input(){
+void member::input()
+{
     cout << "\n\t\t[MEMBER TERMIAL]"; // testing 
     // call the model input to ask an user to enter data
     // model::input(); 
-    cout << "\n\tWhat is the status of the membership?  " << member_ID;
-    cout << "\n\tWhat is the status of the membership?  " << status_mem;
-    cout << "\n\tWhat is the status of the membership?  " << status_mem;
-    cout << "\n\tWhat is the status of the membership?  " << status_mem;
+
+    cout << "\n\tWhat is the ID of the membership?  ";
+    cin >> member_ID;
+
+    cout << "\n\tWhat is the status of the membership?  ";
+    getline(cin, status_mem);
+    cin.clear();
+    cin.ignore(1000,'\n');
+
+    cout << "\n\tWhat is the fee of the membership?  ";
+    cin >> fee_mem;
+
+    cout << "\n\tDoes the membership have overdue fee? if yes, please enter:  ";
+    cin >> overdue_fee;
+}
+
+
+void member::display() const
+{
+    // same input () we need to call the function from the model to display some info
+    // model::display();
+    
+
 }
