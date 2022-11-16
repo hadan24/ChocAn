@@ -94,6 +94,7 @@ bool member::update_status()
             cin.ignore(1000, '\n');
             cin.clear();
         } while (check != true);
+
         if (choice == 1)
         {
             this->status_mem = true;
@@ -119,3 +120,22 @@ void member::update_info()
 void member::read_file(const string &file_name) const
 {
 }
+
+int member::get_member_ID(){ return this->member_ID;}
+
+float member::get_fee_mem(){return this->fee_mem;}
+
+bool member::operator < (const member &to_compare) const{
+    if(member_ID < to_compare.member_ID){
+        return true;
+    }
+    return false;
+}
+
+bool member::operator > (const member &to_compare) const{
+    if(member_ID > to_compare.member_ID){
+        return true;
+    }
+    return false;
+}
+

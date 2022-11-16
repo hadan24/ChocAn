@@ -106,11 +106,13 @@ class member: public model
         bool verify_ID(int ID_check);
         bool update_status();
         bool display_summary();
-
         void write_reports();
 
+        float get_fee_mem();
+        int get_member_ID();    // provider may need this.. hmm.. 
         //operator overloading
-        bool operator<(const member & to_compare); //sorting by ID member
+        bool operator<(const member &to_compare) const; //sorting by ID member
+        bool operator>(const member &to_compare) const; //sorting by ID member
 
     protected:
         bool status_mem; // true: valid   |    false: invalid
