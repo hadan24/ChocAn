@@ -100,7 +100,7 @@ class member: public model
         ~member();
         void input();
         void display() const;
-        void read() const;
+        void read_file(const string& file_name) const;
         void update_info();
 
         bool verify_ID(int ID_check);
@@ -113,8 +113,8 @@ class member: public model
         bool operator<(const member & to_compare); //sorting by ID member
 
     protected:
-        string status_mem;
+        bool status_mem; // true: valid   |    false: invalid
         int member_ID;
         float fee_mem;
-        float overdue_fee;
+        float overdue_fee; // ???? not sure| shoud we leave it here or not
 };
