@@ -57,39 +57,39 @@ class service_list
         string current_date;
 };
 
-class provider: public model
-{
-    public:
-        provider();
-        provider(const provider & copy); //copy constructor, if needed
-        provider(string &, string &, string &, int, int, float);
-        ~provider();
-        void input();
-        void display() const;
-        void read() const;
-        void update_info();
+// class provider: public model
+// {
+//     public:
+//         provider();
+//         provider(const provider & copy); //copy constructor, if needed
+//         provider(string &, string &, string &, int, int, float);
+//         ~provider();
+//         void input();
+//         void display() const;
+//         void read() const;
+//         void update_info();
 
-        void add_provider();
-        void add_service_code();
-        bool check_service_code(int service_code);
-        void display_summary() const;
-        void write_file() const;
-        bool verify_provider_ID(int ID);
+//         void add_provider();
+//         void add_service_code();
+//         bool check_service_code(int service_code);
+//         void display_summary() const;
+//         void write_file() const;
+//         bool verify_provider_ID(int ID);
 
-        //operator overloading
-        bool operator>(const provider & to_compare) const;
-        bool operator<(const provider & to_compare) const;
-        bool operator==(const provider & to_compare) const;
+//         //operator overloading
+//         bool operator>(const provider & to_compare) const;
+//         bool operator<(const provider & to_compare) const;
+//         bool operator==(const provider & to_compare) const;
 
-        friend ostream& operator<<(ostream & o, const provider & to_display);
-        friend bool operator==(int id_to_compare, const provider & to_compare);
+//         friend ostream& operator<<(ostream & o, const provider & to_display);
+//         friend bool operator==(int id_to_compare, const provider & to_compare);
 
-    protected:
-        int num_consul; //number of consultations
-        float total_fee; //weekly fee
-        int provider_ID;
-        service_list * service_provided; //services provided by providers
-};
+//     protected:
+//         int num_consul; //number of consultations
+//         float total_fee; //weekly fee
+//         int provider_ID;
+//         service_list * service_provided; //services provided by providers
+// };
 
 class member: public model
 {

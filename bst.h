@@ -2,29 +2,29 @@
 //feel free to make changes as needed
 #include "chocan.h"
 
-class provider_node
-{   
-    public:
-        provider_node();
-        ~provider_node();
+// class provider_node
+// {   
+//     public:
+//         provider_node();
+//         ~provider_node();
 
-    private:
-        provider * provider_data;
-        provider_node * left;
-        provider_node * right;
-};
+//     private:
+//         provider * provider_data;
+//         provider_node * left;
+//         provider_node * right;
+// };
 
-class BST_provider
-{
-    public:
-        BST_provider();
-        ~BST_provider();
-        BST_provider(BST_provider & copy); //copy constructor
-        //add and remove functions
+// class BST_provider
+// {
+//     public:
+//         BST_provider();
+//         ~BST_provider();
+//         BST_provider(BST_provider & copy); //copy constructor
+//         //add and remove functions
 
-    private:
-        provider_node * root;
-};
+//     private:
+//         provider_node * root;
+// };
 
 class member_node
 {
@@ -75,6 +75,6 @@ class manager
 
     private:
         string manager_ID;
-        BST_provider * manage_p;
+    //    BST_provider * manage_p;
         BST_member * manage_m;
 };

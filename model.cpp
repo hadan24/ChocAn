@@ -15,6 +15,10 @@ model::~model()
 {
 
 }
+void model::input()
+{
+
+}
 
 void model::display() const
 {
@@ -28,5 +32,5 @@ void model::read_file(const string& file_name) const
 
 void model::update_info()
 {
-    
+
 }

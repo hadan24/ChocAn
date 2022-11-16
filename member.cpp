@@ -24,7 +24,8 @@ void member::input()
     cout << "\n\tEnter the ID of the membership:  ";
     cin >> member_ID;
 
-    cout << "\n\t The status of the membership: Valid ";
+    // first time adding a new member. it should be valid as i think
+    cout << "\n\tThe status of the membership: Valid ";
     status_mem = true;
 
     cout << "\n\tEnter the fee of the membership:  ";
@@ -36,6 +37,8 @@ void member::input()
 
 void member::display() const
 {
+
+    cout << "\n\t testing - Display from member class! ";
     // same input () we need to call the function from the model to display some info
     // model::display();
     cout << "\n\tThe ID of the membership:  " << member_ID;
@@ -43,13 +46,13 @@ void member::display() const
     cout << "\n\tThe status of the membership: ";
     if (status_mem)
         cout << " VALID!";
-    else 
+    else
         cout << "INVALID!";
 
-    cout << "\n\tThe fee of the membership:  "<< fee_mem;
+    cout << "\n\tThe fee of the membership:  " << fee_mem;
 
-    cout << "\n\tThe overdue fee of this membership:  "<< overdue_fee;
-
+    cout << "\n\tThe overdue fee of this membership:  " << overdue_fee;
+    cout << "\n\n";
 }
 
 // verify ID number
@@ -63,10 +66,34 @@ bool member::verify_ID(int ID_check)
 bool member::update_status()
 {
     int choice = 0;
+    bool check = false; // doing exceptional handling. if users enter choice as a letter, this may cause an issue
     do
     {
-        cout << "\n\t The status of the membership: \n\t(1) Valid  \n\t(2) Invalid \n\tEnter: ";
-        cin >> choice;
+        do
+        {
+            try
+            {
+                cout << "\n\tThe status of the membership: \n\t(1) Valid  \n\t(2) Invalid \n\tEnter: ";
+                cin >> choice;
+                cin.clear();
+                if (choice == (int)choice && choice > 0)
+                {
+                    check = true;
+                }
+                else
+                {
+                    throw "Your input is not accepted!\n";
+                    check = false;
+                }
+            }
+            catch (const char *exp)
+            {
+                cout << "***ERROR: " << exp;
+                cout << "\n\t****Please re-enter choice with a number!****";
+            }
+            cin.ignore(1000, '\n');
+            cin.clear();
+        } while (check != true);
         if (choice == 1)
         {
             this->status_mem = true;
@@ -79,6 +106,16 @@ bool member::update_status()
             cout << "\n\t The updated status of the membership: VALID! ";
             return true;
         }
-    }while (choice != 1 && choice != 2);
+
+    } while (choice != 1 && choice != 2);
     return false;
+}
+
+void member::update_info()
+{
+    // without it, causing errors since we used virtual function from the parent
+}
+
+void member::read_file(const string &file_name) const
+{
 }
