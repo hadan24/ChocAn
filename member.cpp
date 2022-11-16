@@ -68,3 +68,4 @@ bool member::update_status()
         while (choice != 1 && choice != 2)
             ;
     }
+}
