@@ -10,4 +10,8 @@ int main()
     test_mem.display();
     test_mem.update_status();
     test_mem.display();
+
+    // testing provider class
+    provider test_provider;
+    test_provider.input();
 }
