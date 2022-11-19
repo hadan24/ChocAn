@@ -5,6 +5,7 @@
 #include <string>
 #include <cstdlib>
 #include <cctype>
+#include <vector>
 using namespace std;
 
 class model
@@ -90,7 +91,8 @@ class provider: public model
         int num_consul; //number of consultations
         float total_fee; //weekly fee
         int provider_ID;
-        service_list * service_provided; //services provided by providers
+   //     service_list * service_provided; //services provided by providers
+        vector<service_list> data; 
 };
 
 class member: public model
