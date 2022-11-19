@@ -1,4 +1,6 @@
+// Run test:     g++ -g *.cpp *.h -o chocan -Wall
 #include "main.h"
+
 
 int main()
 {
@@ -15,15 +17,15 @@ int main()
 //////////////////////////////////////////////////////
     // how to run manager class
     // base 
-    BST_provider * provider_management; // control all the list of providers 
-    BST_member * member_management;
-    manager * test_manager;
-    member * test_mem;
-    provider * test_provider; 
+   // BST_provider * provider_management;      // control all the list of providers 
+    BST_member * member_management;           // control all the list of members 
+    manager test_manager;                     // assume one manager
+ //   member * test_mem;
+ //   provider * test_provider; 
 
     // how manager requests to add a new provider. it should be the same as the mem
     // manager has the add provider function. We pass the new provider obj to the function, then add into a leaf. : ) 
- //   test_manager->add_provider(provider_management);   // call the from manager class
+    // test_manager.add_provider(provider_management);   // call the from manager class
     /*
      at the manager class: 
         add_proivder(BST_provider *& provider_management)
@@ -41,6 +43,7 @@ int main()
 
     */
 
-
+   // same as for the member
+   test_manager.add_member(member_management); 
     
 }
