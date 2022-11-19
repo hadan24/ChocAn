@@ -1,16 +1,17 @@
 #include "chocan.h"
 
-model::model()
+model::model():first_name("none"), last_name("node"), address("none")
+            ,city("none"), state("none"), zipcode(0000), email("none")
 {
 
 }
 
-model::model(const model & copy):
+model::model(const model &copy):
     first_name(copy.first_name), last_name(copy.last_name)
     ,address(copy.address), city(copy.city)
-    ,state(copy.state),email(copy.email)
-    ,zipcode(0000)
-{}
+    ,state(copy.state),zipcode(copy.zipcode)
+    ,email(copy.email)
+{}    
 model::~model()
 {
 

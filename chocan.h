@@ -5,8 +5,14 @@
 #include <string>
 #include <cstdlib>
 #include <cctype>
+#include <vector>
+
 using namespace std;
 
+
+// Inheritance 
+//            Model
+//   proivder       member
 class model
 {
     public:
@@ -57,39 +63,43 @@ class service_list
         string current_date;
 };
 
-// class provider: public model
-// {
-//     public:
-//         provider();
-//         provider(const provider & copy); //copy constructor, if needed
-//         provider(string &, string &, string &, int, int, float);
-//         ~provider();
-//         void input();
-//         void display() const;
-//         void read() const;
-//         void update_info();
+class provider: public model
+{
+    public:
+        provider();
+        provider(const provider & copy); //copy constructor, if needed
+        provider(string &, string &, string &, int, int, float);
+        ~provider();
+        void input();
+        void display() const;
+        void read(const string& file_name) const;
+        void update_info();
 
-//         void add_provider();
-//         void add_service_code();
-//         bool check_service_code(int service_code);
-//         void display_summary() const;
-//         void write_file() const;
-//         bool verify_provider_ID(int ID);
+       // void add_provider(); manager's Privilege 
+       // void add_service_code(); manager's Privilege
+        bool check_service_code(int service_code); // waiting for service_list
+        void display_summary() const; // waiting for service_list
+        void write_file() const;
+        bool verify_provider_ID(int ID);
 
-//         //operator overloading
-//         bool operator>(const provider & to_compare) const;
-//         bool operator<(const provider & to_compare) const;
-//         bool operator==(const provider & to_compare) const;
+        
+        int get_provider_ID() const;
+        int get_num_consul() const;
+        float get_total_fee() const;
 
-//         friend ostream& operator<<(ostream & o, const provider & to_display);
-//         friend bool operator==(int id_to_compare, const provider & to_compare);
+        //operator overloading
+        bool operator>(const provider & to_compare) const;
+        bool operator<(const provider & to_compare) const;
+        bool operator==(const provider & to_compare) const;
 
-//     protected:
-//         int num_consul; //number of consultations
-//         float total_fee; //weekly fee
-//         int provider_ID;
-//         service_list * service_provided; //services provided by providers
-// };
+    protected:
+        int num_consul; //number of consultations
+        float total_fee; //weekly fee
+        int provider_ID;
+   //     service_list * service_provided; //services provided by providers
+ //       vector<service_list> data; // using vector because one provider will have more than one service
+                                   // then we could sum of total fee. if there is only one service list object, it doesn't make sense to calculate the sum of the total fee 
+};
 
 class member: public model
 {
