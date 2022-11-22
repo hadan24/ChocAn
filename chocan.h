@@ -5,8 +5,14 @@
 #include <string>
 #include <cstdlib>
 #include <cctype>
+#include <vector>
+
 using namespace std;
 
+
+// Inheritance 
+//            Model
+//   proivder       member
 class model
 {
     public:
@@ -15,7 +21,7 @@ class model
         virtual ~model();
         virtual void input();
         virtual void display() const;
-        virtual void read() const;
+        virtual void read_file(const string& file_name) const;
         virtual void update_info();
 
         void update_address(string new_address, string new_city, string new_state, int new_zip);
@@ -66,29 +72,33 @@ class provider: public model
         ~provider();
         void input();
         void display() const;
-        void read() const;
+        void read(const string& file_name) const;
         void update_info();
 
-        void add_provider();
-        void add_service_code();
-        bool check_service_code(int service_code);
-        void display_summary() const;
+       // void add_provider(); manager's Privilege 
+       // void add_service_code(); manager's Privilege
+        bool check_service_code(int service_code); // waiting for service_list
+        void display_summary() const; // waiting for service_list
         void write_file() const;
         bool verify_provider_ID(int ID);
+
+        
+        int get_provider_ID() const;
+        int get_num_consul() const;
+        float get_total_fee() const;
 
         //operator overloading
         bool operator>(const provider & to_compare) const;
         bool operator<(const provider & to_compare) const;
         bool operator==(const provider & to_compare) const;
 
-        friend ostream& operator<<(ostream & o, const provider & to_display);
-        friend bool operator==(int id_to_compare, const provider & to_compare);
-
     protected:
         int num_consul; //number of consultations
         float total_fee; //weekly fee
         int provider_ID;
-        service_list * service_provided; //services provided by providers
+   //     service_list * service_provided; //services provided by providers
+ //       vector<service_list> data; // using vector because one provider will have more than one service
+                                   // then we could sum of total fee. if there is only one service list object, it doesn't make sense to calculate the sum of the total fee 
 };
 
 class member: public model
@@ -100,21 +110,23 @@ class member: public model
         ~member();
         void input();
         void display() const;
-        void read() const;
+        void read_file(const string& file_name) const;
         void update_info();
 
         bool verify_ID(int ID_check);
         bool update_status();
         bool display_summary();
-
         void write_reports();
 
+        float get_fee_mem();
+        int get_member_ID();    // provider may need this.. hmm.. 
         //operator overloading
-        bool operator<(const member & to_compare); //sorting by ID member
+        bool operator<(const member &to_compare) const; //sorting by ID member
+        bool operator>(const member &to_compare) const; //sorting by ID member
 
     protected:
-        string status_mem;
+        bool status_mem; // true: valid   |    false: invalid
         int member_ID;
         float fee_mem;
-        float overdue_fee;
+        float overdue_fee; // ???? not sure| shoud we leave it here or not
 };
