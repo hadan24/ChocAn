@@ -1,30 +1,48 @@
 //contains definitions for BST stuff
 //feel free to make changes as needed
+/*
+11/18/2022 - Anh Ho
+----
+Note: I am not sure data members should have for the manager terminal. 
+It seems like they just need to access 2 terminals (provider and member) to modify those data  
+If you have another way to reduce functions or good way to pass variables, please feel free to update 
+what I have done: 
+I have added BST_provider and BST_member functions without implementation 
+I have implemented Manager classes including data members and a few functions. 
+----
+*/
 #include "chocan.h"
 
-// class provider_node
-// {   
-//     public:
-//         provider_node();
-//         ~provider_node();
+class provider_node
+{   
+    public:
+        provider_node();
+        ~provider_node();
 
-//     private:
-//         provider * provider_data;
-//         provider_node * left;
-//         provider_node * right;
-// };
+    private:
+        provider * provider_data;
+        provider_node * left;
+        provider_node * right;
+};
 
-// class BST_provider
-// {
-//     public:
-//         BST_provider();
-//         ~BST_provider();
-//         BST_provider(BST_provider & copy); //copy constructor
-//         //add and remove functions
+class BST_provider
+{
+    public:
+        BST_provider();
+        ~BST_provider();
+        BST_provider(BST_provider & copy);                  //copy constructor
 
-//     private:
-//         provider_node * root;
-// };
+        //add and remove functions
+        void add_new_provider_(provider *&){};              // add by an object
+        bool remove_provider_(int ID){return false;};       // pls remove {} and implement it again   
+        bool display_by_ID(int ID){return false;};          // pls remove {} and implement it again
+
+        void display_tree() const{};
+
+
+    private:
+        provider_node * root;
+};
 
 class member_node
 {
@@ -41,10 +59,16 @@ class member_node
 class BST_member
 {
     public:
-        BST_member();
+        BST_member():root(NULL){};
         ~BST_member();
-        BST_member(BST_member & copy); //copy constructor
+        BST_member(BST_member & copy);                   //copy constructor
+        
         //add and remove functions
+        void add_new_member_(member *&){};                // add by an object
+        bool remove_member_(int ID){return false;};       // pls remove {} and implement it again   
+        bool display_by_ID(int ID){return false;};       // pls remove {} and implement it again
+
+        void display_tree() const{};
 
     private:
         member_node * root;
@@ -57,24 +81,29 @@ class manager
         manager(const manager & copy); //copy constructor, if needed
         ~manager();
         //add members or providers
-        void add_member();
-        void add_provider();
-
+        void add_provider(BST_provider *&);
+        void add_member(BST_member *&);
+    
         //remove members or providers, based on ID
-        bool remove_provider(int ID);
-        bool remove_member(int ID);
+        bool remove_provider(BST_provider *&);
+        bool remove_member(BST_member *&);
 
-        bool search_provider(string);
-        bool search_member(string);
+        //display a info of an invidual by ID
+        bool search_display_provider(BST_provider *&);
+        bool search_display_member(BST_member *&);
 
-        void display() const;
+        // display a whole list of ...
+        void display_provider(BST_provider *) const;
+        void display_member(BST_member *) const;
+
         void read() const;
         void update_info();
         void retrieve();
         void write_report(); //writing EFT data to disk
 
     private:
-        string manager_ID;
-    //    BST_provider * manage_p;
+        
+        int manager_ID; 
+        BST_provider * manage_p;
         BST_member * manage_m;
 };

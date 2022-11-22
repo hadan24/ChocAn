@@ -6,8 +6,13 @@
 #include <cstdlib>
 #include <cctype>
 #include <vector>
+
 using namespace std;
 
+
+// Inheritance 
+//            Model
+//   proivder       member
 class model
 {
     public:
@@ -92,7 +97,7 @@ class provider: public model
         float total_fee; //weekly fee
         int provider_ID;
    //     service_list * service_provided; //services provided by providers
-        vector<service_list> data; // using vector because one provider will have more than one service
+ //       vector<service_list> data; // using vector because one provider will have more than one service
                                    // then we could sum of total fee. if there is only one service list object, it doesn't make sense to calculate the sum of the total fee 
 };
 
