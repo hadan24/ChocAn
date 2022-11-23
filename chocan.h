@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <cctype>
 #include <vector>
+#include <iomanip>
 
 using namespace std;
 
@@ -75,8 +76,8 @@ class provider: public model
         void read(const string& file_name) const;
         void update_info();
 
-       // void add_provider(); manager's Privilege 
-       // void add_service_code(); manager's Privilege
+		// void add_provider(); manager's Privilege 
+		// void add_service_code(); manager's Privilege
         bool check_service_code(int service_code); // waiting for service_list
         void display_summary() const; // waiting for service_list
         void write_file() const;
@@ -98,9 +99,9 @@ class provider: public model
         int num_consul; //number of consultations
         float total_fee; //weekly fee
         int provider_ID;
-   //     service_list * service_provided; //services provided by providers
- //       vector<service_list> data; // using vector because one provider will have more than one service
-                                   // then we could sum of total fee. if there is only one service list object, it doesn't make sense to calculate the sum of the total fee 
+		// service_list * service_provided; //services provided by providers
+		// vector<service_list> data;	// using vector because one provider will have more than one service. then we could sum of total fee.
+										// if there is only one service list object, it doesn't make sense to calculate the sum of the total fee 
 };
 
 class member: public model
@@ -122,6 +123,7 @@ class member: public model
 
         float get_fee_mem();
         int get_member_ID();    // provider may need this.. hmm.. 
+
         //operator overloading
         bool operator<(const member &to_compare) const; //sorting by ID member
         bool operator>(const member &to_compare) const; //sorting by ID member
