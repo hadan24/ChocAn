@@ -1,7 +1,9 @@
 #include "bst.h"
 
-manager::manager(): manager_ID(000), manage_p(NULL), manage_m(NULL)
-{}
+manager::manager():manager_ID(000), manage_p(NULL), manage_m(NULL)
+{
+    
+}
 
 manager::manager(const manager & copy):manager_ID(copy.manager_ID)
                                     , manage_p(copy.manage_p), manage_m(copy.manage_m)
@@ -49,7 +51,7 @@ bool manager::search_display_member(BST_member *& mange_m)
 
 void manager::display_member(BST_member * manage_m) const 
 {
-    manage_m->display_tree();
+    manage_m->display_tree_();
 }
 // Manger manges the MEMBER terminal - end
 //////////////////////////////////////////////////////////
@@ -90,7 +92,7 @@ bool manager::search_display_provider(BST_provider *& mange_p)
 
 void manager::display_provider(BST_provider * manage_p) const 
 {
-    manage_p->display_tree();
+    manage_p->display_tree_();
 }
 // Manger manges the PROVIDER terminal - end
 

@@ -90,7 +90,9 @@ class provider: public model
         //operator overloading
         bool operator>(const provider & to_compare) const;
         bool operator<(const provider & to_compare) const;
+        bool operator>(const int ID_compare) const;
         bool operator==(const provider & to_compare) const;
+        bool operator==(const int ID_compare) const;
 
     protected:
         int num_consul; //number of consultations
@@ -123,6 +125,9 @@ class member: public model
         //operator overloading
         bool operator<(const member &to_compare) const; //sorting by ID member
         bool operator>(const member &to_compare) const; //sorting by ID member
+        bool operator>(const int ID_compare) const;
+        bool operator==(const member &to_compare) const;
+        bool operator==(const int ID_compare) const;
 
     protected:
         bool status_mem; // true: valid   |    false: invalid
