@@ -1,13 +1,11 @@
 #include "bst.h"
 
-manager::manager():manager_ID(000), manage_p(NULL), manage_m(NULL)
-{
-    
-}
+manager::manager(): manager_ID(000), manage_p(NULL), manage_m(NULL)
+{}
 
-manager::manager(const manager & copy):manager_ID(copy.manager_ID)
-                                    , manage_p(copy.manage_p), manage_m(copy.manage_m)
- {}
+manager::manager(const manager & copy):manager_ID(copy.manager_ID), manage_p(copy.manage_p), manage_m(copy.manage_m)
+{}
+
 manager::~manager()
 {
     // leave it empty if there is nothing alloacted memory 
