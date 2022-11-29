@@ -7,7 +7,7 @@
 #include <cctype>
 #include <vector>
 #include <iomanip>
-#include <unordered_map>
+#include <map>
 #include <fstream>
 
 using namespace std;
@@ -123,16 +123,15 @@ class service
         void input();
         void display() const;
         void update_info();
-		void write_to_file(ostream);
+		// not sure who should handle writing to disk
+		static void show_available_services();	// display provider directory
 
-        void print_report_provider();
-        void print_report_member(); //print and write EFT report to file
-        bool verify_service_code();
-        void update_comments();
+		// if provider class handles writing to disk, will include getter
+		// functions so they can access the proper information to print reports
 
     protected:
 		void load_available_services();
-		static unordered_map<int, string> available_services;
+		static map<int, string> available_services;
 
 		string date_of_service;
 		int service_code;
