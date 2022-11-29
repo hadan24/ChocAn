@@ -7,6 +7,8 @@
 #include <cctype>
 #include <vector>
 #include <iomanip>
+#include <unordered_map>
+#include <fstream>
 
 using namespace std;
 
@@ -38,30 +40,6 @@ class model
         string state;
         int zipcode;
         string email;
-};
-
-class service_list
-{
-    public:
-        service_list();
-        service_list(const service_list & copy); //copy constructor, if needed
-    
-        void input();
-        void display() const;
-        void update_service_info();
-
-        void print_report_provider();
-        void print_report_member(); //print and write EFT report to file
-        bool verify_service_code();
-        void update_comments();
-
-    protected:
-        int service_code;
-        float service_cost;
-        string service_name;
-        string comments;
-        string DOS; //date of service
-        string current_date;
 };
 
 class provider: public model
@@ -99,9 +77,7 @@ class provider: public model
         int num_consul; //number of consultations
         float total_fee; //weekly fee
         int provider_ID;
-		// service_list * service_provided; //services provided by providers
-		// vector<service_list> data;	// using vector because one provider will have more than one service. then we could sum of total fee.
-										// if there is only one service list object, it doesn't make sense to calculate the sum of the total fee 
+		// vector<service> services_provided;
 };
 
 class member: public model
@@ -136,4 +112,32 @@ class member: public model
         int member_ID;
         float fee_mem;
         float overdue_fee; // ???? not sure| shoud we leave it here or not
+		// vector<service> services_received;
+};
+
+class service
+{
+    public:
+        service();
+    
+        void input();
+        void display() const;
+        void update_info();
+		void write_to_file(ostream);
+
+        void print_report_provider();
+        void print_report_member(); //print and write EFT report to file
+        bool verify_service_code();
+        void update_comments();
+
+    protected:
+		void load_available_services();
+		static unordered_map<int, string> available_services;
+
+		string date_of_service;
+		int service_code;
+        string service_name;
+        string comments;
+		float service_cost;
+		string current_date;
 };
