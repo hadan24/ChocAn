@@ -12,7 +12,6 @@
 
 using namespace std;
 
-
 // Inheritance 
 //            Model
 //   proivder       member
@@ -117,7 +116,7 @@ class member: public model
         float fee_mem;
         float overdue_fee; // ???? not sure| shoud we leave it here or not
 		// vector<service> services_received;
-};
+};  
 
 class service
 {

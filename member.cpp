@@ -161,6 +161,6 @@ bool member::operator==(const int ID_compare) const
 {
     if(member_ID == ID_compare)
         return true;
-    
     return false;
 }
+  
