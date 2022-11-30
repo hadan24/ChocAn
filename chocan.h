@@ -5,8 +5,17 @@
 #include <string>
 #include <cstdlib>
 #include <cctype>
+#include <vector>
+#include <iomanip>
+#include <map>
+#include <fstream>
+
 using namespace std;
 
+
+// Inheritance 
+//            Model
+//   proivder       member
 class model
 {
     public:
@@ -33,30 +42,6 @@ class model
         string email;
 };
 
-class service_list
-{
-    public:
-        service_list();
-        service_list(const service_list & copy); //copy constructor, if needed
-    
-        void input();
-        void display() const;
-        void update_service_info();
-
-        void print_report_provider();
-        void print_report_member(); //print and write EFT report to file
-        bool verify_service_code();
-        void update_comments();
-
-    protected:
-        int service_code;
-        float service_cost;
-        string service_name;
-        string comments;
-        string DOS; //date of service
-        string current_date;
-};
-
 class provider: public model
 {
     public:
@@ -69,8 +54,8 @@ class provider: public model
         void read(const string& file_name) const;
         void update_info();
 
-       // void add_provider(); manager's Privilege 
-       // void add_service_code(); manager's Privilege
+		// void add_provider(); manager's Privilege 
+		// void add_service_code(); manager's Privilege
         bool check_service_code(int service_code); // waiting for service_list
         void display_summary() const; // waiting for service_list
         void write_file() const;
@@ -84,14 +69,50 @@ class provider: public model
         //operator overloading
         bool operator>(const provider & to_compare) const;
         bool operator<(const provider & to_compare) const;
+        bool operator>(const int ID_compare) const;
         bool operator==(const provider & to_compare) const;
+        bool operator==(const int ID_compare) const;
 
     protected:
         int num_consul; //number of consultations
         float total_fee; //weekly fee
         int provider_ID;
-        service_list * service_provided; //services provided by providers
+		// vector<service> services_provided;
 };
+
+// class provider: public model
+// {
+//     public:
+//         provider();
+//         provider(const provider & copy); //copy constructor, if needed
+//         provider(string &, string &, string &, int, int, float);
+//         ~provider();
+//         void input();
+//         void display() const;
+//         void read() const;
+//         void update_info();
+
+//         void add_provider();
+//         void add_service_code();
+//         bool check_service_code(int service_code);
+//         void display_summary() const;
+//         void write_file() const;
+//         bool verify_provider_ID(int ID);
+
+//         //operator overloading
+//         bool operator>(const provider & to_compare) const;
+//         bool operator<(const provider & to_compare) const;
+//         bool operator==(const provider & to_compare) const;
+
+//         friend ostream& operator<<(ostream & o, const provider & to_display);
+//         friend bool operator==(int id_to_compare, const provider & to_compare);
+
+//     protected:
+//         int num_consul; //number of consultations
+//         float total_fee; //weekly fee
+//         int provider_ID;
+//         service_list * service_provided; //services provided by providers
+// };
 
 class member: public model
 {
@@ -112,13 +133,44 @@ class member: public model
 
         float get_fee_mem();
         int get_member_ID();    // provider may need this.. hmm.. 
+
         //operator overloading
         bool operator<(const member &to_compare) const; //sorting by ID member
         bool operator>(const member &to_compare) const; //sorting by ID member
+        bool operator>(const int ID_compare) const;
+        bool operator==(const member &to_compare) const;
+        bool operator==(const int ID_compare) const;
 
     protected:
         bool status_mem; // true: valid   |    false: invalid
         int member_ID;
         float fee_mem;
         float overdue_fee; // ???? not sure| shoud we leave it here or not
+		// vector<service> services_received;
+};
+
+class service
+{
+    public:
+        service();
+    
+        void input();
+        void display() const;
+        void update_info();
+		// not sure who should handle writing to disk
+		static void show_available_services();	// display provider directory
+
+		// if provider class handles writing to disk, will include getter
+		// functions so they can access the proper information to print reports
+
+    protected:
+		void load_available_services();
+		static map<int, string> available_services;
+
+		string date_of_service;
+		int service_code;
+        string service_name;
+        string comments;
+		float service_cost;
+		string current_date;
 };
