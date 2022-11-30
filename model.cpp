@@ -26,34 +26,59 @@ model::~model()
 void model::input()
 {
     bool check_email = false;
-    cout << "Please enter your infomation in ChocAn system!\n";
-    cout << "Enter your fist name: ";
+    bool check_zipcode = false;
+
+    cout << "\n\n\tEnter your fist name: ";
     getline(cin, first_name);
 
-    cout << "Enter your last name: ";
+    cout << "\tEnter your last name: ";
     getline(cin, last_name);
 
-    cout << "Enter your home address: ";
+    cout << "\tEnter your home address: ";
     getline(cin, address);
 
-    cout << "Enter your city: ";
+    cout << "\tEnter your city: ";
     getline(cin, city);
 
-    cout << "Enter your state: ";
+    cout << "\tEnter your state: ";
     getline(cin, state);
 
-    cout << "Enter your zipcode: ";
-    cin >> zipcode;
-    cin.ignore(1000, '\n');
-    cin.clear();
-
+ 
+    //,, zipcode input
+    do
+    {
+        try
+        {
+            cout << "\tEnter your zipcode: ";
+            cin >> zipcode;
+            cin.clear();
+            if (zipcode == (int)zipcode && zipcode > 0)
+            {
+                check_zipcode = true;
+            }
+            else
+            {
+                throw "Your zipcode is not accepted!";
+                check_zipcode = false;
+            }
+        }
+        catch (const char *exp)
+        {
+            cout << "\n\t***ERROR: " << exp;
+            cout << "\n\t****Please enter a valid zipcode with a number!****\n\t";
+        }
+        cin.ignore(1000, '\n');
+         cin.clear();
+    } while (check_zipcode != true);
+    
+    //.. email input
     do {
-    cout << "Enter your email: ";
+    cout << "\tEnter your email: ";
     getline(cin, email);
     check_email = valid_email(email);
       if (!check_email) {
-        cout << "Your email "<< email << " is "
-             << "INVALID. Please enter another one following (Eg: email@pdx.edu)" << endl;
+        cout << "\n**Your email "<< email << " is "
+             << "INVALID. Please enter another one following (Eg: email@pdx.edu)\n\t\t";
     }
     } while (!check_email);
 }

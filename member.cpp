@@ -19,7 +19,7 @@ void member::input()
 {
     cout << "\n\t\t[ADDING A NEW MEMBER]"; // testing
     // call the model input to ask an user to enter personal data
-    // model::input();
+     model::input();
 
     cout << "\n\tEnter the ID of the membership:  ";
     cin >> member_ID;
