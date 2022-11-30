@@ -27,6 +27,10 @@ class model
         virtual void read_file(const string& file_name) const;
         virtual void update_info();
 
+        //input checking
+        bool valid_email(const string &);
+
+        //ChocAn functions
         void update_address(string new_address, string new_city, string new_state, int new_zip);
         void update_email(string new_email);
         bool update_name();
