@@ -82,7 +82,7 @@ class member_node
 class BST_member
 {
     public:
-        BST_member():root(NULL){};
+        BST_member();
         ~BST_member();
         //BST_member(BST_member & copy);                   //copy constructor
 
