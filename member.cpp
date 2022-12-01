@@ -21,11 +21,11 @@ void member::input()
     // call the model input to ask an user to enter personal data
     model::input();
 
-    cout << "\tEnter the ID of the membership       :  ";
+    cout << "\n\tEnter the ID of the membership       :  ";
     cin >> member_ID;
 
     // first time adding a new member. it should be valid as i think
-    cout << "\tThe status of the membership         : Valid ";
+    cout << "\n\tThe status of the membership         : Valid ";
     status_mem = true;
 
     cout << "\tEnter the fee of the membership     :  ";
@@ -43,7 +43,7 @@ void member::display() const
     model::display();
     cout << "\n\tThe ID of the membership           :  " << member_ID;
 
-    cout << "\n\tThe status of the membership         : ";
+    cout << "\n\tThe status of the membership       : ";
     if (status_mem)
         cout << " VALID!";
     else
