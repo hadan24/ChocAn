@@ -104,7 +104,7 @@ class BST_member
         member_node * root;
 };
 
-class manager
+class manager  // @anhho
 {
     public:
         manager();
