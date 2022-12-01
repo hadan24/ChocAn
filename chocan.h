@@ -1,4 +1,3 @@
-// @anhho
 //contains classes for model, member, and provider class
 //feel free to make changes as needed
 #include <iostream>
