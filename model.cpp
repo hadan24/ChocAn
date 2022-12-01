@@ -3,6 +3,10 @@
         working on input() for model
         checking data input is valid or not!
         email input valid ref: https://www.geeksforgeeks.org/check-if-given-email-address-is-valid-or-not-in-cpp/
+    11.30.2022 @aho 
+        adding info for display and update_info func in the model class
+        also checking bad inputs. 
+
 */
 #include "chocan.h"
 #include <regex>
@@ -94,9 +98,15 @@ bool model::valid_email(const string& check_email)
 
 void model::display() const
 {
+    cout << "\n\t** Personal Information **";
+    cout << "\tFirst Name     : " << first_name << endl;
+    cout << "\tLast Name      : " << last_name << endl;
+    cout << "\tHome address   : " << address << ", " << city << ", " 
+         << state << ", " << zipcode << endl;
+    cout << "\tEmail contact  : " << email << endl;
+} 
 
-}
-
+// this function is used for adding data from a txt file. 
 void model::read_file(const string& file_name) const
 {
 
@@ -104,5 +114,8 @@ void model::read_file(const string& file_name) const
 
 void model::update_info()
 {
+    
+    cout << "\n\t** UPDATE PERSONAL INFORMATION **";
+    
 
 }

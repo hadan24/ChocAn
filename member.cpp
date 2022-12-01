@@ -40,7 +40,7 @@ void member::display() const
 
     cout << "\n\t testing - Display from member class! ";
     // same input () we need to call the function from the model to display some info
-    // model::display();
+    model::display();
     cout << "\n\tThe ID of the membership:  " << member_ID;
 
     cout << "\n\tThe status of the membership: ";

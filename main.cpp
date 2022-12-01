@@ -7,11 +7,11 @@ int main()
     cout << "Did somebody say...chocolate?" << endl;
     
     // testing member class 
-    // member test_mem;
-    // test_mem.input();
-    // test_mem.display();
-    // test_mem.update_status();
-    // test_mem.display();
+    member test_mem;
+    test_mem.input();
+    test_mem.display();
+    test_mem.update_status();
+    test_mem.display();
 
 /* Leaving all these comments here for now for future reference of testing or how to use classes - Dan
     // testing member class 
@@ -52,111 +52,111 @@ int main()
    test_manager.add_member(member_management); 
 */
 
-	// Ryan's menu stuff
-    int tempID; //This variable is for testing the menu: this would be the class member's ID
-    char menu_input;
-    print_header();
+	// // Ryan's menu stuff
+    // int tempID; //This variable is for testing the menu: this would be the class member's ID
+    // char menu_input;
+    // print_header();
 
-    print_welcome();
-    tempID = query_ID();
+    // print_welcome();
+    // tempID = query_ID();
 
-    if (tempID == 1) {
-        do {
-            provider_menu();
-            cout << "Select a Function: ";
-            menu_input = query_menu();
-            switch(menu_input) {
-                case 's':
-                    cout << "Checking Member Status..." << endl;
-                    break;
-                case 'i':
-                    cout << "Searching ID..." << endl;
-                    break;
-                case 'c':
-                    cout << "Charging Member..." << endl;
-                    break;
-                case 'd':
-                    cout << "Requesting Provider Directory..." << endl;
-                    break;
-                case 'a':
-                    cout << "Adding Member..." << endl;
-                    break;
-                case 'r':
-                    cout << "Removing Member" << endl;
-                    break;
-                case 'u':
-                    cout << "Updating Member Information..." << endl;
-                    break;
-                case 'o':
-                    cout << "Requesting Provider Report" << endl;
-                    break;
-                case 'q':
-                    cout << "Quitting..." << endl;
-                    break;
-                default:
-                    cout << "Unknown Command..." << endl << endl;
-                    break;
-            }
-        } while (menu_input != 'q');
+    // if (tempID == 1) {
+    //     do {
+    //         provider_menu();
+    //         cout << "Select a Function: ";
+    //         menu_input = query_menu();
+    //         switch(menu_input) {
+    //             case 's':
+    //                 cout << "Checking Member Status..." << endl;
+    //                 break;
+    //             case 'i':
+    //                 cout << "Searching ID..." << endl;
+    //                 break;
+    //             case 'c':
+    //                 cout << "Charging Member..." << endl;
+    //                 break;
+    //             case 'd':
+    //                 cout << "Requesting Provider Directory..." << endl;
+    //                 break;
+    //             case 'a':
+    //                 cout << "Adding Member..." << endl;
+    //                 break;
+    //             case 'r':
+    //                 cout << "Removing Member" << endl;
+    //                 break;
+    //             case 'u':
+    //                 cout << "Updating Member Information..." << endl;
+    //                 break;
+    //             case 'o':
+    //                 cout << "Requesting Provider Report" << endl;
+    //                 break;
+    //             case 'q':
+    //                 cout << "Quitting..." << endl;
+    //                 break;
+    //             default:
+    //                 cout << "Unknown Command..." << endl << endl;
+    //                 break;
+    //         }
+    //     } while (menu_input != 'q');
 
-    }
-    else if (tempID == 2) {
-        do {
-            member_menu();
-            cout << "Select a Function: ";
-            menu_input = query_menu();
-            switch (menu_input) {
-                case 's':
-                    cout << "Requesting service..." << endl << endl;
-                    break;
-                case 'r':
-                    cout << "Requesting Report..." << endl << endl;
-                    break;
-                case 'q':
-                    cout << "Quitting..." << endl << endl;
-                    break;
-                default:
-                    cout << "Unknown Command..." << endl << endl;
-                    break;
-            }
-        } while (menu_input != 'q');
-    }
-    else if (tempID == 3) {
-        do {
-            manager_menu();
-            cout << "Select a Function: ";
-            menu_input = query_menu();
-            switch (menu_input) {
-                case 'p':
-                    cout << "Printing Weekly Report" << endl;
-                    break;
-                case 'a':
-                    cout << "Adding Member" << endl;
-                    break;
-                case 'd':
-                    cout << "Removing Member" << endl;
-                    break;
-                case 'k':
-                    cout << "Adding Provider..." << endl;
-                    break;
-                case 'r':
-                    cout << "Removing Provider..." << endl;
-                    break;
-                case 'u':
-                    cout << "Updating Member Information..." << endl;
-                    break;
-                case 's':
-                    cout << "Updating Provider Information..." << endl;
-                    break;
-                case 'q':
-                    cout << "Quitting..." << endl;
-                    break;
-                default:
-                    cout << "Unknown Command..." << endl << endl;
-                    break;
-            }
-        } while (menu_input != 'q');
-    }
+    // }
+    // else if (tempID == 2) {
+    //     do {
+    //         member_menu();
+    //         cout << "Select a Function: ";
+    //         menu_input = query_menu();
+    //         switch (menu_input) {
+    //             case 's':
+    //                 cout << "Requesting service..." << endl << endl;
+    //                 break;
+    //             case 'r':
+    //                 cout << "Requesting Report..." << endl << endl;
+    //                 break;
+    //             case 'q':
+    //                 cout << "Quitting..." << endl << endl;
+    //                 break;
+    //             default:
+    //                 cout << "Unknown Command..." << endl << endl;
+    //                 break;
+    //         }
+    //     } while (menu_input != 'q');
+    // }
+    // else if (tempID == 3) {
+    //     do {
+    //         manager_menu();
+    //         cout << "Select a Function: ";
+    //         menu_input = query_menu();
+    //         switch (menu_input) {
+    //             case 'p':
+    //                 cout << "Printing Weekly Report" << endl;
+    //                 break;
+    //             case 'a':
+    //                 cout << "Adding Member" << endl;
+    //                 break;
+    //             case 'd':
+    //                 cout << "Removing Member" << endl;
+    //                 break;
+    //             case 'k':
+    //                 cout << "Adding Provider..." << endl;
+    //                 break;
+    //             case 'r':
+    //                 cout << "Removing Provider..." << endl;
+    //                 break;
+    //             case 'u':
+    //                 cout << "Updating Member Information..." << endl;
+    //                 break;
+    //             case 's':
+    //                 cout << "Updating Provider Information..." << endl;
+    //                 break;
+    //             case 'q':
+    //                 cout << "Quitting..." << endl;
+    //                 break;
+    //             default:
+    //                 cout << "Unknown Command..." << endl << endl;
+    //                 break;
+    //         }
+    //     } while (menu_input != 'q');
+    // }
 
     cout << "Thank you for choosing Chocoholics Anonymous!" << endl;
 
