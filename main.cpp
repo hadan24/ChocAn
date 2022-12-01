@@ -11,6 +11,7 @@ int main()
     test_mem.input();
     test_mem.display();
     test_mem.update_status();
+    test_mem.update_info();
     test_mem.display();
 
 /* Leaving all these comments here for now for future reference of testing or how to use classes - Dan
