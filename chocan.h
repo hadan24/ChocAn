@@ -31,9 +31,10 @@ class model
 
         //ChocAn functions
         void update_address();
-        void update_email(string new_email);
+        void update_email();
         bool update_name();
-        bool verify_ID(int ID_check);
+
+        bool verify_ID(int ID_check); // not done
 
     private:
         string first_name;

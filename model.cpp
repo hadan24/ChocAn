@@ -144,15 +144,22 @@ void model::update_info()
         } while (check != true);
 
     } while (choice < 0 && choice > 3);
-
+    // update first n last name
     if (choice == 1)
     {
         if (!update_name())
             cout << "\n\t~~~ There is an empty input. Unable to update!\n";
     }
+    // update address
     if (choice == 2)
     {
         update_address();
+    }
+    // update email
+    if (choice == 3)
+    {
+        cout << "\n\t** UPDATE YOUR EMAIL ** ";
+        update_email();
     }
 }
 
@@ -176,11 +183,12 @@ bool model::update_name()
     return true;
 }
 
-void model::update_address(){
+void model::update_address()
+{
     bool check_zipcode = false;
     string t_address = "";
-    string t_city  = "";
-    string t_state  = "";
+    string t_city = "";
+    string t_state = "";
     int t_zipcode = 0;
     cout << "\n\t** UPDATE YOUR ADDRESS ** ";
     cout << "\n\tEnter your home address     : ";
@@ -223,4 +231,22 @@ void model::update_address(){
     this->city = t_city;
     this->state = t_state;
     this->zipcode = t_zipcode;
+}
+
+void model::update_email()
+{
+    bool check_email = false;
+    string t_email = "";
+    do
+    {
+        cout << "\tEnter your email         : ";
+        getline(cin, t_email);
+        check_email = valid_email(t_email);
+        if (!check_email)
+        {
+            cout << "\n**Your email " << t_email << " is "
+                 << "INVALID. Please enter another one following (Eg: email@pdx.edu)\n\t";
+        }
+    } while (!check_email);
+    this->email = t_email;
 }
