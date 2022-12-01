@@ -146,10 +146,14 @@ void model::update_info()
     } while (choice < 0 && choice > 3);
 
     if (choice == 1)
+    {
         if (!update_name())
             cout << "\n\t~~~ There is an empty input. Unable to update!\n";
-    else if (choice == 2)
-        {}
+    }
+    if (choice == 2)
+    {
+        update_address();
+    }
 }
 
 bool model::update_name()
@@ -170,4 +174,53 @@ bool model::update_name()
     cout << "\n\tFirst name     : " << first_name;
     cout << "\n\tLast name      : " << last_name;
     return true;
+}
+
+void model::update_address(){
+    bool check_zipcode = false;
+    string t_address = "";
+    string t_city  = "";
+    string t_state  = "";
+    int t_zipcode = 0;
+    cout << "\n\t** UPDATE YOUR ADDRESS ** ";
+    cout << "\tEnter your home address     : ";
+    getline(cin, t_address);
+
+    cout << "\tEnter your city             : ";
+    getline(cin, t_city);
+
+    cout << "\tEnter your state            : ";
+    getline(cin, t_state);
+
+    //,, zipcode input
+    do
+    {
+        try
+        {
+            cout << "\tEnter your zipcode       : ";
+            cin >> t_zipcode;
+            cin.clear();
+            if (t_zipcode == (int)zipcode && t_zipcode > 0)
+            {
+                check_zipcode = true;
+            }
+            else
+            {
+                throw "Your zipcode is not accepted!";
+                check_zipcode = false;
+            }
+        }
+        catch (const char *exp)
+        {
+            cout << "\n\t***ERROR: " << exp;
+            cout << "\n\t****Please enter a valid zipcode with a number!****\n\t";
+        }
+        cin.ignore(1000, '\n');
+        cin.clear();
+    } while (check_zipcode != true);
+
+    this->address = t_address;
+    this->city = t_city;
+    this->state = t_state;
+    this->zipcode = t_zipcode;
 }
