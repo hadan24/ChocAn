@@ -10,7 +10,7 @@ int main()
     member test_mem;
     test_mem.input();
     test_mem.display();
-    test_mem.update_status();
+    //test_mem.update_status();
     test_mem.update_info();
     test_mem.display();
 
