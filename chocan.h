@@ -30,7 +30,7 @@ class model
         bool valid_email(const string &);
 
         //ChocAn functions
-        void update_address(string new_address, string new_city, string new_state, int new_zip);
+        void update_address();
         void update_email(string new_email);
         bool update_name();
         bool verify_ID(int ID_check);
