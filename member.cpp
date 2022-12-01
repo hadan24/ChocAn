@@ -21,17 +21,17 @@ void member::input()
     // call the model input to ask an user to enter personal data
     model::input();
 
-    cout << "\n\tEnter the ID of the membership:  ";
+    cout << "\tEnter the ID of the membership       :  ";
     cin >> member_ID;
 
     // first time adding a new member. it should be valid as i think
-    cout << "\n\tThe status of the membership: Valid ";
+    cout << "\tThe status of the membership         : Valid ";
     status_mem = true;
 
-    cout << "\n\tEnter the fee of the membership:  ";
+    cout << "\tEnter the fee of the membership     :  ";
     cin >> fee_mem;
 
-    cout << "\n\tDoes the membership have overdue fee? if yes, please enter:  ";
+    cout << "\tDoes the membership have overdue fee? if yes, please enter:  ";
     cin >> overdue_fee;
 }
 
@@ -41,17 +41,17 @@ void member::display() const
     cout << "\n\t testing - Display from member class! ";
     // same input () we need to call the function from the model to display some info
     model::display();
-    cout << "\n\tThe ID of the membership:  " << member_ID;
+    cout << "\n\tThe ID of the membership           :  " << member_ID;
 
-    cout << "\n\tThe status of the membership: ";
+    cout << "\n\tThe status of the membership         : ";
     if (status_mem)
         cout << " VALID!";
     else
         cout << "INVALID!";
 
-    cout << "\n\tThe fee of the membership:  " << fee_mem;
+    cout << "\n\tThe fee of the membership          :  " << fee_mem;
 
-    cout << "\n\tThe overdue fee of this membership:  " << overdue_fee;
+    cout << "\n\tThe overdue fee of this membership :  " << overdue_fee;
     cout << "\n\n";
 }
 
@@ -114,7 +114,7 @@ bool member::update_status()
 
 void member::update_info()
 {
-    // without it, causing errors since we used virtual function from the parent
+    model::update_info();
 }
 
 void member::read_file(const string &file_name) const
