@@ -44,6 +44,7 @@ class BST_provider
         void add_new_provider_(provider *& to_add);              // add by an object
         bool remove_provider_(int ID);          
         bool display_by_ID(int ID);
+        int count_nodes();
 
         void display_tree_();
 
@@ -53,6 +54,7 @@ class BST_provider
         void add_provider(provider *& to_add, provider_node *& root);
         bool remove_provider(int ID, provider_node *& root);
         bool display_ID(int ID, provider_node *& root);
+        int count_nodes(provider_node * root);
         void display_tree(provider_node * root);
         void delete_all(provider_node *& root); //for destructor
         void find_ios(provider_node *& root, provider_node *& ios); //less headache when removing via match

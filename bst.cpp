@@ -220,6 +220,24 @@ bool BST_provider::display_ID(int ID, provider_node *& root)
     return found;
 }
 
+int BST_provider::count_nodes()
+{
+    if(!root)
+        return 0;
+    
+    return count_nodes(root);
+}
+
+int BST_provider::count_nodes(provider_node * root)
+{
+    //base case
+    if(!root)
+        return 0;
+
+    int count = count_nodes(root->go_left()) + count_nodes(root->go_right());
+    return 1 + count;
+}
+
 void BST_provider::display_tree_() 
 {
     display_tree(root);
