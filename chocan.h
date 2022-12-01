@@ -15,11 +15,20 @@ using namespace std;
 // Inheritance 
 //            Model
 //   proivder       member
-class model
+class model  // @anhho
 {
     public:
         model();
         model(const model & copy); //copy constructor, if needed
+        model(
+            const string& , //first
+            const string& , //last
+            const string& , //address
+            const string& , //city
+            const string& , //state
+            int ,           //zipcode
+            const string& //email
+        );
         virtual ~model();
         virtual void input();
         virtual void display() const;
@@ -84,12 +93,24 @@ class provider: public model
 		// vector<service> services_provided;
 };
 
-class member: public model
+class member: public model  // @anhho
 {
     public: 
         member();
         member(const member & copy); //copy constructor, if needed
-        member(string, string, string, int);
+        member(
+            const string& , //first
+            const string& , //last
+            const string& , //address
+            const string& , //city
+            const string& , //state
+            int ,           //zipcode
+            const string& , //email
+            const bool& ,   //status
+            int ,           //ID
+            float           //fee
+        );     
+
         ~member();
         void input();
         void display() const;
@@ -115,7 +136,6 @@ class member: public model
         bool status_mem; // true: valid   |    false: invalid
         int member_ID;
         float fee_mem;
-        float overdue_fee; // ???? not sure| shoud we leave it here or not
 		// vector<service> services_received;
 };  
 
