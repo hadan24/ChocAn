@@ -1,0 +1,5 @@
+Anh|Ho|123 SW 5th ave|Portland|OR|97234|aho@pdx.edu|1|99999999|123.4
+Santa|Ye|444 SW 54th ave|Portland|OR|972344|aho44@pdx.edu|0|4444444|3.4
+King|Queen|666 SW 56th ave|Portland|OR|93124|ljjkhj@pdx.edu|0|666666|63.4
+Danny|Kim|555 SW 123th ave|Portland|OR|99534|asdas@pdx.edu|0|4564456|123.4
+Benson|Lee|123 SW 4th ave|Portland|OR|94245|sdfsdf@pdx.edu|0|123123|123.4
