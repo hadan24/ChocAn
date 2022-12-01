@@ -3,14 +3,22 @@
 #include "chocan.h"
 
 // initialize
-member::member() : status_mem("false"), member_ID(000), fee_mem(000), overdue_fee(000)
+member::member() : status_mem("false"), member_ID(000), fee_mem(000)
 {
 }
 
 // copy constructor for member class
-member::member(const member &copy) : model(copy), status_mem(copy.status_mem), member_ID(copy.member_ID), fee_mem(copy.fee_mem), overdue_fee(copy.overdue_fee)
+member::member(const member &copy) : model(copy), status_mem(copy.status_mem), member_ID(copy.member_ID), fee_mem(copy.fee_mem)
 {
 }
+member::member(
+    const string& t_first,
+    const string& t_last, const string& t_address, const string& t_city, 
+    const string& t_state, int t_zipcode, const string& t_email, 
+    const bool& t_status, int t_ID, float t_fee):
+    model(t_first, t_last, t_address, t_state, t_city, t_zipcode, t_email)
+    , status_mem(t_status), member_ID(t_ID), fee_mem(t_fee) 
+{}
 
 member::~member()
 {
@@ -33,8 +41,6 @@ void member::input()
     cout << "\n\tEnter the fee of the membership      :  ";
     cin >> fee_mem;
 
-    cout << "\tDoes the membership have overdue fee? if yes, please enter:  ";
-    cin >> overdue_fee;
 }
 
 void member::display() const
@@ -52,9 +58,6 @@ void member::display() const
         cout << "INVALID!";
 
     cout << "\n\tThe fee of the membership          :  " << fee_mem;
-
-    cout << "\n\tThe overdue fee of this membership :  " << overdue_fee;
-    cout << "\n\n";
 }
 
 // verify ID number
@@ -121,6 +124,50 @@ void member::update_info()
 
 void member::read_file(const string &file_name) const
 {
+    ifstream INFILE(file_name);
+    // temp variable to get input into data.
+    string t_first;
+    string t_last;
+    string t_address;
+    string t_city;
+    string t_state;
+    int t_zipcode;
+    string t_email;
+    bool t_status = 0;
+    int t_id;
+    float t_fee;
+    string eachLine;
+    
+ 
+    //error check for open file
+    if(INFILE.is_open())
+    {
+        while(getline(INFILE, eachLine))
+        {
+
+            stringstream readFile(eachLine);
+            getline(readFile, t_first, '|');
+            getline(readFile, t_last, '|');
+            getline(readFile, t_address, '|');
+            getline(readFile, t_city, '|');
+            getline(readFile, t_state, '|');
+            readFile >> t_zipcode;
+            readFile.ignore(1, '|');
+            getline(readFile, t_email, '|');
+            readFile >> t_status;  
+            readFile.ignore(1,'|'); 
+            readFile >> t_id;
+            readFile.ignore(1,'|');
+            readFile >> t_fee;
+            member get_new_member(t_first, t_last, t_address, t_city, t_state
+                                , t_zipcode, t_email, t_status, t_id, t_fee);
+            //testing a new object work or not
+            get_new_member.display();
+        }
+        return;
+    }
+    cerr << "ERROR: Failed to open file " << file_name << " for loading data!!!\n";
+    exit(1);    
 }
 
 int member::get_member_ID(){ return this->member_ID;}
