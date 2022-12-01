@@ -1,4 +1,5 @@
 // @anhho
+// miss reading a txt file into data
 #include "chocan.h"
 
 // initialize
