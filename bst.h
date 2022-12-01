@@ -18,6 +18,14 @@ class provider_node
     public:
         provider_node();
         ~provider_node();
+        provider_node(provider *& copy);
+        provider_node *& go_left(); //returns left pointer
+        provider_node *& go_right(); //returns right pointer
+        void display(); //calls provider's display function
+        //wrappers for operator overloading
+        bool greater(provider *& compare);
+        bool greater(int compare);
+        bool equal(int compare);
 
     private:
         provider * provider_data;
@@ -30,17 +38,24 @@ class BST_provider
     public:
         BST_provider();
         ~BST_provider();
-        BST_provider(BST_provider & copy);                  //copy constructor
+        //BST_provider(BST_provider & copy);                  //copy constructor
 
         //add and remove functions
-        void add_new_provider_(provider *&){};              // add by an object
-        bool remove_provider_(int ID){return false;};       // pls remove {} and implement it again   
-        bool display_by_ID(int ID){return false;};          // pls remove {} and implement it again
+        void add_new_provider_(provider *& to_add);              // add by an object
+        bool remove_provider_(int ID);          
+        bool display_by_ID(int ID);
 
-        void display_tree() const{};
+        void display_tree_();
 
 
     private:
+        //recursive functions
+        void add_provider(provider *& to_add, provider_node *& root);
+        bool remove_provider(int ID, provider_node *& root);
+        bool display_ID(int ID, provider_node *& root);
+        void display_tree(provider_node * root);
+        void delete_all(provider_node *& root); //for destructor
+        void find_ios(provider_node *& root, provider_node *& ios); //less headache when removing via match
         provider_node * root;
 };
 
@@ -48,7 +63,15 @@ class member_node
 {
     public:
         member_node();
-        ~member_node();
+        ~member_node();  
+        member_node(member *& copy);      
+        member_node *& go_left(); //returns left pointer
+        member_node *& go_right(); //returns right pointer
+        void display(); //calls member's display function
+        bool greater(member *& compare);
+        bool greater(int compare);
+        bool equal(int compare);
+
     
     private:
         member * member_data;
@@ -59,18 +82,25 @@ class member_node
 class BST_member
 {
     public:
-        BST_member():root(NULL){};
+        BST_member();
         ~BST_member();
-        BST_member(BST_member & copy);                   //copy constructor
-        
-        //add and remove functions
-        void add_new_member_(member *&){};                // add by an object
-        bool remove_member_(int ID){return false;};       // pls remove {} and implement it again   
-        bool display_by_ID(int ID){return false;};       // pls remove {} and implement it again
+        //BST_member(BST_member & copy);                   //copy constructor
 
-        void display_tree() const{};
+        //add and remove functions
+        void add_new_member_(member *& to_add);                // add by an object
+        bool remove_member_(int ID); 
+        bool display_by_ID(int ID);
+
+        void display_tree_();
 
     private:
+        //recursive functions
+        void add_member(member *& to_add, member_node *& root);
+        bool remove_member(int ID, member_node *& root);
+        bool display_ID(int ID, member_node *& root);
+        void display_tree(member_node * root);
+        void delete_all(member_node *& root); //for destructor
+        void find_ios(member_node *& root, member_node *& ios); //less headache when removing via match
         member_node * root;
 };
 

@@ -18,10 +18,11 @@ model::model(const model &copy):
     ,address(copy.address), city(copy.city)
     ,state(copy.state),zipcode(copy.zipcode)
     ,email(copy.email)
-{}    
+{ 
+}    
 model::~model()
 {
-
+  
 }
 void model::input()
 {

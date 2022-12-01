@@ -19,7 +19,7 @@ void member::input()
 {
     cout << "\n\t\t[ADDING A NEW MEMBER]"; // testing
     // call the model input to ask an user to enter personal data
-     model::input();
+    model::input();
 
     cout << "\n\tEnter the ID of the membership:  ";
     cin >> member_ID;
@@ -125,17 +125,42 @@ int member::get_member_ID(){ return this->member_ID;}
 
 float member::get_fee_mem(){return this->fee_mem;}
 
-bool member::operator < (const member &to_compare) const{
+bool member::operator<(const member &to_compare) const{
     if(member_ID < to_compare.member_ID){
         return true;
     }
     return false;
 }
 
-bool member::operator > (const member &to_compare) const{
+bool member::operator>(const member &to_compare) const{
     if(member_ID > to_compare.member_ID){
         return true;
     }
     return false;
 }
 
+bool member::operator>(const int ID_compare) const
+{
+    if(member_ID > ID_compare)
+        return true;
+    
+    return false;
+}
+
+//needed for BST 
+bool member::operator==(const member &to_compare) const
+{
+    if(member_ID == to_compare.member_ID)
+        return true;
+    
+    return false;
+}
+
+//needed for BST
+bool member::operator==(const int ID_compare) const
+{
+    if(member_ID == ID_compare)
+        return true;
+    return false;
+}
+  
