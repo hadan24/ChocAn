@@ -183,7 +183,7 @@ void model::update_address(){
     string t_state  = "";
     int t_zipcode = 0;
     cout << "\n\t** UPDATE YOUR ADDRESS ** ";
-    cout << "\tEnter your home address     : ";
+    cout << "\n\tEnter your home address     : ";
     getline(cin, t_address);
 
     cout << "\tEnter your city             : ";
@@ -200,7 +200,7 @@ void model::update_address(){
             cout << "\tEnter your zipcode       : ";
             cin >> t_zipcode;
             cin.clear();
-            if (t_zipcode == (int)zipcode && t_zipcode > 0)
+            if (t_zipcode == (int)t_zipcode && t_zipcode > 0)
             {
                 check_zipcode = true;
             }
