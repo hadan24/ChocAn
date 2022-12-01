@@ -137,14 +137,12 @@ void member::read_file(const string &file_name) const
     int t_id;
     float t_fee;
     string eachLine;
-    
  
     //error check for open file
     if(INFILE.is_open())
     {
         while(getline(INFILE, eachLine))
         {
-
             stringstream readFile(eachLine);
             getline(readFile, t_first, '|');
             getline(readFile, t_last, '|');
@@ -161,8 +159,8 @@ void member::read_file(const string &file_name) const
             readFile >> t_fee;
             member get_new_member(t_first, t_last, t_address, t_city, t_state
                                 , t_zipcode, t_email, t_status, t_id, t_fee);
-            //testing a new object work or not
-            get_new_member.display();
+            // testing a new object work or not
+            // get_new_member.display();
         }
         return;
     }
