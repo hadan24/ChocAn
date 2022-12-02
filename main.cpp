@@ -68,8 +68,10 @@ int main()
 
     /*Structures Block*/
     BST_member member_tree;
-    
     BST_provider provider_tree;
+
+    service_list serve_list;
+    service_directory serve_dir;
 
 
     print_header();
@@ -107,9 +109,9 @@ int main()
                 //     cout << "Charging Member..." << endl;  *No built functionality?*
                 //     break;
                 case 'd':
-                    /*
-                        No functionality yet
-                    */
+                    cout << "Displaying Provider Directory" << endl << endl;
+                    cout << "List of services and codes as follows:" << endl << endl;
+                    serve_dir.display_all();
                     cout << "Requesting Provider Directory..." << endl;
                     break;
                 case 'a':
