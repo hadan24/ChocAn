@@ -124,7 +124,7 @@ void model::update_info()
         do
         {
             cout << "\n\tWhich information do you want to update in the system?";
-            cout << "\n\t[1] Firt and Last Name";
+            cout << "\n\t[1] First and Last Name";
             cout << "\n\t[2] Mailing Adress";
             cout << "\n\t[3] Email";
             cout << "\n\t[0] I don't want to update anything!";

@@ -22,6 +22,7 @@ class provider_node
         provider_node *& go_left(); //returns left pointer
         provider_node *& go_right(); //returns right pointer
         void display(); //calls provider's display function
+        provider* retrieve_provider_data();
         //wrappers for operator overloading
         bool greater(provider *& compare);
         bool greater(int compare);
@@ -44,6 +45,8 @@ class BST_provider
         void add_new_provider_(provider *& to_add);              // add by an object
         bool remove_provider_(int ID);          
         bool display_by_ID(int ID);
+        bool search_by_ID(int ID);
+        provider* retrieve_provider(int ID);
         int count_nodes();
 
         void display_tree_();
@@ -54,6 +57,8 @@ class BST_provider
         void add_provider(provider *& to_add, provider_node *& root);
         bool remove_provider(int ID, provider_node *& root);
         bool display_ID(int ID, provider_node *& root);
+        bool search_ID(int ID, provider_node *& root);
+        provider* retrieve_provider(int ID, provider_node *& root);
         int count_nodes(provider_node * root);
         void display_tree(provider_node * root);
         void delete_all(provider_node *& root); //for destructor
@@ -70,6 +75,7 @@ class member_node
         member_node *& go_left(); //returns left pointer
         member_node *& go_right(); //returns right pointer
         void display(); //calls member's display function
+        member* retrieve_member_data();
         bool greater(member *& compare);
         bool greater(int compare);
         bool equal(int compare);
@@ -92,6 +98,8 @@ class BST_member
         void add_new_member_(member *& to_add);                // add by an object
         bool remove_member_(int ID); 
         bool display_by_ID(int ID);
+        bool search_by_ID(int ID);
+        member* retrieve_member(int ID);
 
         void display_tree_();
 
@@ -100,6 +108,8 @@ class BST_member
         void add_member(member *& to_add, member_node *& root);
         bool remove_member(int ID, member_node *& root);
         bool display_ID(int ID, member_node *& root);
+        bool search_ID(int ID, member_node *& root);
+        member* retrieve_member(int ID, member_node *& root);
         void display_tree(member_node * root);
         void delete_all(member_node *& root); //for destructor
         void find_ios(member_node *& root, member_node *& ios); //less headache when removing via match
