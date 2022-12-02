@@ -53,38 +53,90 @@ int main()
 */
 
 	// Ryan's menu stuff
-    int tempID; //This variable is for testing the menu: this would be the class member's ID
+
+    /*General Variables Block*/
+    int menu_ID; //This variable is for testing the menu: this would be the class member's ID
     char menu_input;
+    int tempID; //Variable for individual cases that need an ID input
+
+    /*Model Classes Block*/
+    provider choc_provider;
+    member choc_member;
+    member* member_ptr;
+    manager choc_manager;
+
+    /*Structures Block*/
+    BST_member member_tree;
+    member_node member_node1;
+    BST_provider provider_tree;
+
     print_header();
 
     print_welcome();
-    tempID = query_ID();
+    menu_ID = query_ID();
 
-    if (tempID == 1) {
+    if (menu_ID == 1) {
         do {
             provider_menu();
             cout << "Select a Function: ";
             menu_input = query_menu();
             switch(menu_input) {
                 case 's':
-                    cout << "Checking Member Status..." << endl;
+                    cout << "Please enter the ID of the member you would " <<
+                             "like to check the status of: ";
+                    tempID = query_ID();
+
+                    if (!member_tree.display_by_ID(tempID)) {
+                        cout << "Member ID Not Found..." << endl;
+                    }
+                    cout << endl << "Member status checked..." << endl;
                     break;
                 case 'i':
+                    cout << "Please enter the ID of the member you would " <<
+                             "like to display: ";
+                    tempID = query_ID();
+
+                    if (!member_tree.display_by_ID(tempID)) {
+                        cout << "Member ID Not Found..." << endl;
+                    }
                     cout << "Searching ID..." << endl;
                     break;
-                case 'c':
-                    cout << "Charging Member..." << endl;
-                    break;
+                // case 'c':
+                //     cout << "Charging Member..." << endl;  *No built functionality?*
+                //     break;
                 case 'd':
                     cout << "Requesting Provider Directory..." << endl;
                     break;
                 case 'a':
+                    choc_member.input();
+                    member_ptr = &choc_member;
+                    member_tree.add_new_member_(member_ptr);
                     cout << "Adding Member..." << endl;
                     break;
                 case 'r':
-                    cout << "Removing Member" << endl;
+                    cout << "Please enter the ID of the member you would " <<
+                             "like to remove: ";
+                    tempID = query_ID();
+
+                    if (!member_tree.remove_member_(tempID)) {
+                        cout << "Unable to remove requested member..." << endl;
+                    }
+
+                    cout << "Removing Member..." << endl;
                     break;
                 case 'u':
+                    cout << "Please Enter the ID of the member you would " <<
+                             "like to update: ";
+                    tempID = query_ID();
+
+                    if (member_tree.search_by_ID(tempID)) {
+                        member_ptr = member_tree.retrieve_member(tempID);
+                        member_ptr->update_info();
+                        cout << "Information updated..." << endl << endl;
+                    }
+                    else {
+                        cout << "Member ID Not Found..." << endl;
+                    }
                     cout << "Updating Member Information..." << endl;
                     break;
                 case 'o':
@@ -100,7 +152,7 @@ int main()
         } while (menu_input != 'q');
 
     }
-    else if (tempID == 2) {
+    else if (menu_ID == 2) {
         do {
             member_menu();
             cout << "Select a Function: ";
@@ -121,7 +173,7 @@ int main()
             }
         } while (menu_input != 'q');
     }
-    else if (tempID == 3) {
+    else if (menu_ID == 3) {
         do {
             manager_menu();
             cout << "Select a Function: ";
@@ -242,10 +294,10 @@ void print_line_break()
 /*****************************************************/
 int query_ID()
 {
-    int tempID;
-    cin >> tempID;
+    int menu_ID;
+    cin >> menu_ID;
     cout << endl;
-    return tempID;
+    return menu_ID;
 }
 
 char query_menu() 
