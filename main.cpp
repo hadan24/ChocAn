@@ -61,14 +61,16 @@ int main()
 
     /*Model Classes Block*/
     provider choc_provider;
+    provider* provider_ptr;
     member choc_member;
     member* member_ptr;
     manager choc_manager;
 
     /*Structures Block*/
     BST_member member_tree;
-    member_node member_node1;
+    
     BST_provider provider_tree;
+
 
     print_header();
 
@@ -105,6 +107,9 @@ int main()
                 //     cout << "Charging Member..." << endl;  *No built functionality?*
                 //     break;
                 case 'd':
+                    /*
+                        No functionality yet
+                    */
                     cout << "Requesting Provider Directory..." << endl;
                     break;
                 case 'a':
@@ -140,6 +145,9 @@ int main()
                     cout << "Updating Member Information..." << endl;
                     break;
                 case 'o':
+                    /*
+                        No functionality yet
+                    */
                     cout << "Requesting Provider Report" << endl;
                     break;
                 case 'q':
@@ -180,26 +188,73 @@ int main()
             menu_input = query_menu();
             switch (menu_input) {
                 case 'p':
+                    /*
+                        No functionality yet
+                    */
                     cout << "Printing Weekly Report" << endl;
                     break;
                 case 'a':
+                    choc_member.input();
+                    member_ptr = &choc_member;
+                    member_tree.add_new_member_(member_ptr);
                     cout << "Adding Member" << endl;
                     break;
                 case 'd':
+                    cout << "Please enter the ID of the member you would " <<
+                             "like to remove: ";
+                    tempID = query_ID();
+
+                    if (!member_tree.remove_member_(tempID)) {
+                        cout << "Unable to remove requested member..." << endl;
+                    }
                     cout << "Removing Member" << endl;
                     break;
                 case 'k':
+                    choc_provider.input();
+                    provider_ptr = &choc_provider;
+                    provider_tree.add_new_provider_(provider_ptr);
                     cout << "Adding Provider..." << endl;
                     break;
                 case 'r':
+                    cout << "Please enter the ID of the provider you would " <<
+                             "like to remove: ";
+                    tempID = query_ID();
+
+                    if (!provider_tree.remove_provider_(tempID)) {
+                        cout << "Unable to remove requested provider..." << endl;
+                    }
                     cout << "Removing Provider..." << endl;
                     break;
                 case 'u':
+                    cout << "Please Enter the ID of the member you would " <<
+                             "like to update: ";
+                    tempID = query_ID();
+
+                    if (member_tree.search_by_ID(tempID)) {
+                        member_ptr = member_tree.retrieve_member(tempID);
+                        member_ptr->update_info();
+                        cout << "Information updated..." << endl << endl;
+                    }
+                    else {
+                        cout << "Member ID Not Found..." << endl;
+                    }
                     cout << "Updating Member Information..." << endl;
                     break;
-                case 's':
-                    cout << "Updating Provider Information..." << endl;
-                    break;
+                // case 's':
+                //     cout << "Please Enter the ID of the provider you would " <<
+                //              "like to update: ";
+                //     tempID = query_ID();
+
+                //     if (provider_tree.search_by_ID(tempID)) {
+                //         provider_ptr = provider_tree.retrieve_provider(tempID); **No functionality?**
+                //         provider_ptr->update_info();
+                //         cout << "Information Updated..." << endl << endl;
+                //     }
+                //     else {
+                //         cout << "Member ID Not Found..." << endl;
+                //     }
+                //     cout << "Updating Provider Information..." << endl;
+                //     break;
                 case 'q':
                     cout << "Quitting..." << endl;
                     break;
@@ -248,7 +303,7 @@ void provider_menu()
     print_line_break();
     cout << "i: Search by ID" << endl;
     print_line_break();
-    cout << "c: Charge Member for Service(s)" << endl;
+    cout << "c: Charge Member for Service(s) [Nonfunctional]" << endl;
     print_line_break();
     cout << "d: Request Provider Directory" << endl;
     print_line_break();
@@ -280,7 +335,7 @@ void manager_menu()
     print_line_break();
     cout << "u: Update Member Information" << endl;
     print_line_break();
-    cout << "s: Update Provider Information" << endl;
+    cout << "s: Update Provider Information [Nonfunctional]" << endl;
     print_line_break();
     cout << "q: Quit" << endl << endl;
     print_line_break();
