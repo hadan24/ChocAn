@@ -8,6 +8,7 @@
 #include <vector>
 #include <iomanip>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -59,17 +60,16 @@ class provider: public model
     public:
         provider();
         provider(const provider & copy); //copy constructor, if needed
-        provider(string &, string &, string &, int, int, float);
+        provider(const string&, const string&,const string &,const string &,const string &, int, const string &, int, float, int, service*);
         ~provider();
         void input();
         void display() const;
         void read(const string& file_name) const;
         void update_info();
 
-		// void add_provider(); manager's Privilege 
-		// void add_service_code(); manager's Privilege
-        bool check_service_code(int service_code); // waiting for service_list
-        void display_summary() const; // waiting for service_list
+        bool check_service_code(); 
+        void display_summary() const; //display weekly summary report
+        void display_directory();
         void write_file() const;
         bool verify_provider_ID(int ID);
 
@@ -89,7 +89,8 @@ class provider: public model
         int num_consul; //number of consultations
         float total_fee; //weekly fee
         int provider_ID;
-		// vector<service> services_provided;
+		service *service_provided;
+
 };
 
 class member: public model  // @anhho
