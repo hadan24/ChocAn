@@ -9,6 +9,7 @@
 #include <iomanip>
 #include <map>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -47,17 +48,16 @@ class provider: public model
     public:
         provider();
         provider(const provider & copy); //copy constructor, if needed
-        provider(string &, string &, string &, int, int, float);
+        provider(const string&, const string&,const string &,const string &,const string &, int, const string &, int, float, int, service*);
         ~provider();
         void input();
         void display() const;
         void read(const string& file_name) const;
         void update_info();
 
-		// void add_provider(); manager's Privilege 
-		// void add_service_code(); manager's Privilege
-        bool check_service_code(int service_code); // waiting for service_list
-        void display_summary() const; // waiting for service_list
+        bool check_service_code(); 
+        void display_summary() const; //display weekly summary report
+        void display_directory();
         void write_file() const;
         bool verify_provider_ID(int ID);
 
@@ -77,42 +77,9 @@ class provider: public model
         int num_consul; //number of consultations
         float total_fee; //weekly fee
         int provider_ID;
-		// vector<service> services_provided;
+		service *service_provided;
+
 };
-
-// class provider: public model
-// {
-//     public:
-//         provider();
-//         provider(const provider & copy); //copy constructor, if needed
-//         provider(string &, string &, string &, int, int, float);
-//         ~provider();
-//         void input();
-//         void display() const;
-//         void read() const;
-//         void update_info();
-
-//         void add_provider();
-//         void add_service_code();
-//         bool check_service_code(int service_code);
-//         void display_summary() const;
-//         void write_file() const;
-//         bool verify_provider_ID(int ID);
-
-//         //operator overloading
-//         bool operator>(const provider & to_compare) const;
-//         bool operator<(const provider & to_compare) const;
-//         bool operator==(const provider & to_compare) const;
-
-//         friend ostream& operator<<(ostream & o, const provider & to_display);
-//         friend bool operator==(int id_to_compare, const provider & to_compare);
-
-//     protected:
-//         int num_consul; //number of consultations
-//         float total_fee; //weekly fee
-//         int provider_ID;
-//         service_list * service_provided; //services provided by providers
-// };
 
 class member: public model
 {
