@@ -54,43 +54,7 @@ class model  // @anhho
         string email;
 };
 
-class provider: public model
-{
-    public:
-        provider();
-        provider(const provider & copy); //copy constructor, if needed
-        provider(string &, string &, string &, int, int, float);
-        ~provider();
-        void input();
-        void display() const;
-        void read(const string& file_name) const;
-        void update_info();
 
-		// void add_provider(); manager's Privilege 
-		// void add_service_code(); manager's Privilege
-        bool check_service_code(int service_code); // waiting for service_list
-        void display_summary() const; // waiting for service_list
-        void write_file() const;
-        bool verify_provider_ID(int ID);
-
-        
-        int get_provider_ID() const;
-        int get_num_consul() const;
-        float get_total_fee() const;
-
-        //operator overloading
-        bool operator>(const provider & to_compare) const;
-        bool operator<(const provider & to_compare) const;
-        bool operator>(const int ID_compare) const;
-        bool operator==(const provider & to_compare) const;
-        bool operator==(const int ID_compare) const;
-
-    protected:
-        int num_consul; //number of consultations
-        float total_fee; //weekly fee
-        int provider_ID;
-		// vector<service> services_provided;
-};
 
 class member: public model  // @anhho
 {
@@ -200,4 +164,40 @@ class service_directory
 			float cost;
 		};
 		vector<entry> dir;
+};
+
+class provider: public model
+{
+    public:
+        provider();
+        provider(const provider & copy); //copy constructor, if needed
+        provider(const string&, const string&,const string &,const string &,const string &, int, const string &, int, int, float, service_list*);
+        ~provider();
+        void input();
+        void display() const;
+        void read(const string& file_name) const;
+        void update_info();
+
+        bool check_service_code(int service_code); 
+        void display_summary() const; //display weekly summary report
+        void display_directory();
+        void write_file();
+        bool verify_provider_ID(int ID);
+
+        int get_provider_ID() const;
+        int get_num_consul() const;
+        float get_total_fee() const;
+
+        //operator overloading
+        bool operator>(const provider & to_compare) const;
+        bool operator<(const provider & to_compare) const;
+        bool operator>(const int ID_compare) const;
+        bool operator==(const provider & to_compare) const;
+        bool operator==(const int ID_compare) const;
+
+    protected:
+        int num_consul; //number of consultations 
+        float total_fee; //weekly fee
+        int provider_ID;
+		service_list *service_provided;
 };

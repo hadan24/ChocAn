@@ -1,4 +1,4 @@
-// Run test:     g++ -g *.cpp *.h -o chocan -Wall
+// Run test:     vim
 #include "main.h"
 
 
@@ -51,6 +51,28 @@ int main()
    // same as for the member
    test_manager.add_member(member_management); 
 */
+//Linh Nguyen
+    // This help to display summary report weekly of provider
+  /* BST_provider p;
+    provider aProvider;
+    int count;
+    
+    count = p.count_nodes();
+    cout << "\n\tProvider Summary Report Weekly";
+
+    cout <<  "\n\t1.The total number of providers: " << count; 
+    aProvider.display_summary();
+
+    ///write_file for provider's report
+    char fileNameOut [] = "p_report.txt";
+  	ofstream outfile(fileNameOut);
+    
+    outfile << "1.The total number of providers: " << count << '\n';
+    aProvider.write_file();
+    cout << "We already have a report for provider.";
+
+    outfile.close();*/ 
+    ///////////////***////////////////////
 
 	// Ryan's menu stuff
     int tempID; //This variable is for testing the menu: this would be the class member's ID
