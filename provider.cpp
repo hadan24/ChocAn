@@ -1,196 +1,344 @@
-// Linh Nguyen
-
 #include "chocan.h"
+#include <time.h>
+#include <cctype>
+#define NAME_SZ 20
+#define COMMENT_SZ 100
 
-// initialize
-provider::provider() : num_consul(000), total_fee(000), provider_ID(000) , service_provided(nullptr)
-{  
-}
+service_directory available_services;
 
-// copy constructor for provider class
-provider::provider(const provider &copy) : model(copy), num_consul(copy.num_consul), total_fee(copy.total_fee), provider_ID(copy.provider_ID)
+void service_list::add_new_service_record()
 {
-    this -> service_provided = new service_list(*copy.service_provided);
+	service temp;
+	temp.create();
+
+	vector<service>::iterator t = list.begin();
+	while ( ((*t).compare_dates(temp)) <= 0 )
+		t++;
+
+	list.insert(t, temp);
+	cout << "\n\tService record saved.\n" << endl;
 }
-provider:: provider (const string& p_first, const string& p_last,
-                    const string & p_address,const string & p_city,const string & p_state,int p_zip,
-                    const string & p_email, int num_consul,  int p_ID,float total_fee, service_list *list)
+
+void service_list::display_all_services()
 {
-
+	for (unsigned int i = 0; i < list.size(); i++)
+		list[i].display();
 }
-provider::~provider()
+
+float service_list::total_cost()
 {
-    if (service_provided) {
-        delete service_provided;
-        service_provided = NULL;
-    }
+	float sum = 0.0;
+	for (unsigned int i = 0; i < list.size(); i++)
+		sum += list[i].get_cost();
+	
+	return sum;
 }
 
-void provider:: input()
+int service_list::num_services() { return list.size(); }
+
+
+
+service::service(): date_of_service("Date of service not saved"),
+	code(0), name("No service name saved"), comments("No comments"),
+	cost(0.0), current_date("Date of record not saved")
 {
-    cout << "\n\t\t[ADDING A NEW PROVIDER]";
-
-    //call the model input to ask personal data of provider
-    model::input();
-    cout << "\n\tEnter the ID of the membership:  ";
-    cin >> provider_ID;
-
-    cout << "\n\tEnter the number of consultant:  ";
-    cin >> num_consul;
-
-    cout << "\n\tEnter the fee of consultant:  ";
-    cin >> total_fee;
-
-    cout << "\n\tThe service list:  ";
-    service_provided -> add_new_service_record();
-                                
+	name.reserve(NAME_SZ);
+	comments.reserve(COMMENT_SZ);
 }
 
-void provider:: display() const
+void service::create()
 {
-    
-    //same input () we need to call the function from the model to display some info
-    model::display();
-    cout << "\n\tThe ID of the provider:  " << provider_ID;
+	cout << "\n\t\t[ADDING A NEW SERVICE RECORD]" << endl;
 
-    cout << "\n\tThe number of consultant " << num_consul;
+	enter_date();
+	get_service_dir_data();
 
-    cout << "\n\tThe fee of the membership:  " << total_fee;
+	// enter comments (optional)
+	char resp;
+	cout << "\n\tWould you like to add any additional comments? (Y/N):  ";
+	do {
+		cin >> resp;
+		
+		if ('Y' != resp && 'y' != resp && 'N' != resp && 'n' != resp) {
+			cout << "\n\tDid not understand your response. Please enter 'Y' or 'N'.\n"
+				<< "Would you like to add any additional comments?  ";
+		}
+		else break;
+	} while (true);
+	if ('Y' == resp || 'y' == resp) {
+		cout << "\n\tPlease enter them here: (500 character limit)\n";
+		getline(cin, comments, '\n');
+	}
 
-    cout << "\n\tThe services list:  ";
-    service_provided -> display_all_services();
-    cout << "\n\n";
+	get_curr_date();
+
+	cout << "\n\tService record created.\n" << endl;
 }
-void provider:: display_summary () const
+
+void service::display() const
 {
-    float total_fee;
-    int total_num;
-    total_num = service_provided -> num_services();
-    cout << "\n\t2.The total number of consultations:  " << total_num;
-    
-    total_fee = service_provided ->total_cost();
-    cout <<  "\n\t3.The overall fee  " << total_fee;
+	cout << "\n\t" << name << " (" << code << ") - $" << cost;
+	cout << "\n\tDate provided: " << date_of_service;
+	cout << "\n\tDate recorded: " << current_date;
+	cout << "\n\t" << comments << endl;
 }
 
-void provider:: write_file() 
+int service::compare_dates(service &to_cmp)
 {
-    float total_fee;
-    int total_num;
+	// compare years
+	string y = date_of_service.substr(6, 4);
+	string cmp_y = to_cmp.date_of_service.substr(6, 4);
+	if (parse_date(y) < parse_date(cmp_y))	return -1;
+	if (parse_date(y) > parse_date(cmp_y))	return 1;
 
-    char fileNameOut [] = "p_report.txt";
-  	ofstream outfile(fileNameOut);
-    total_num = service_provided -> num_services();
-    total_fee = service_provided ->total_cost();
-    outfile << "2.The total number of consultations:  " << total_num << '\n';
-    outfile << "3.The overall fee " << total_fee << '\n';
+	// years are the same, compare months
+	string m = date_of_service.substr(0, 2);
+	string cmp_m = to_cmp.date_of_service.substr(0, 2);
+	if (parse_date(m) < parse_date(cmp_m))	return -1;
+	if (parse_date(m) > parse_date(cmp_m))	return 1;
 
-    outfile.close();
+	// months also the same, compare days
+	string d = date_of_service.substr(3, 2);
+	string cmp_d = to_cmp.date_of_service.substr(3, 2);
+	if (parse_date(d) < parse_date(cmp_d))	return -1;
+	if (parse_date(d) > parse_date(cmp_d))	return 1;
+
+	return 0;
 }
-void provider:: display_directory()
+
+void service::read_from_disk()
 {
-    service_provided -> display_all_services();
+	ifstream ifile("provider.txt");
+
 }
 
-/*bool provider::check_service_code () 
+float service::get_cost() { return cost; }
+
+
+void service::enter_date()
 {
-    int check;
-    cout <<  "Please enter service code that you want to check "<< check;
-    //service_provided -> check_code(check);
-}*/
+	string m, d, y;
+	char valid = 0;
+	cout << "\n\tDate of service (MM-DD-YYYY):  ";
+	do {
+		getline(cin, m, '-');
+		getline(cin, d, '-');
+		getline(cin, y, '\n');
 
-void provider::read(const string &file_name) const
+		valid = check_date(m, d, y);
+		if (!valid)
+			cout << "\n\tInvalid date. Please check your entry and try again.\n" << endl;
+	} while (!valid);
+
+	date_of_service = m + "-" + d + "-" + y;
+}
+
+void service::get_service_dir_data()
 {
-    string p_first;
-    string p_last;
-    string p_address;
-    string p_city;
-    string p_state;
-    int p_zipcode;
-    string p_email;
-    int num_consul;
-    float total_fee;
-    int provider_ID;
-    //service_list *list;
-    string eachLine;
-
-    ifstream INFILE(file_name);
-    if(INFILE.is_open())
-    {
-        while(getline(INFILE, eachLine))
-        {
-
-            stringstream readFile(eachLine);
-            getline(readFile, p_first, '|');
-            getline(readFile, p_last, '|');
-            getline(readFile, p_address, '|');
-            getline(readFile, p_city, '|');
-            getline(readFile, p_state, '|');
-            readFile >> p_zipcode;
-            readFile.ignore(1, '|');
-            getline(readFile, p_email, '|');
-            readFile >> num_consul;  
-            readFile.ignore(1,'|'); 
-            readFile >> total_fee;
-            readFile.ignore(1,'|');
-            readFile >> provider_ID;
-            
-            //provider new_provider(p_first, p_last, p_address, p_city, p_state
-            //                    , p_zipcode, p_email, num_consul,total_fee, provider_ID, list);
-            
-            //new_provider.display();
-        }
-        return;
-    }
-    cerr << "ERROR: unable to open file " << file_name << " for loading data!!!\n";
-    exit(1);     
+	cout << "\n\tName of service provided:  ";
+	do {
+		getline(cin, name, '\n');
+		code = available_services.find_code_by_name(prep_str(name));
+		
+		if (code < 0)
+			cout << "\n\tInvalid service name. Please check your entry and try again.\n" << endl;
+	} while (code < 0);
+	cost = available_services.find_cost_by_name(name);
+	capitalize_name();
 }
 
-void provider::update_info()
+void service::get_curr_date()
 {
-    model::update_info();
+	char conv_t[26];
+	time_t t = time(NULL);
+	//ctime_s(conv_t, 26, &t);
+	ctime_r(&t, conv_t);
+	
+	// get date
+	switch(conv_t[4]+conv_t[5]+conv_t[6]) {
+		case 'J' + 'a' + 'n':	current_date = "01-";	break;
+		case 'F' + 'e' + 'b':	current_date = "02-";	break;
+		case 'M' + 'a' + 'r':	current_date = "03-";	break;
+		case 'A' + 'p' + 'r':	current_date = "04-";	break;
+		case 'M' + 'a' + 'y':	current_date = "05-";	break;
+		case 'J' + 'u' + 'n':	current_date = "06-";	break;
+		case 'J' + 'u' + 'l':	current_date = "07-";	break;
+		case 'A' + 'u' + 'g':	current_date = "08-";	break;
+		case 'S' + 'e' + 'p':	current_date = "09-";	break;
+		case 'O' + 'c' + 't':	current_date = "10-";	break;
+		case 'N' + 'o' + 'v':	current_date = "11-";	break;
+		case 'D' + 'e' + 'c':	current_date = "12-";	break;
+	}
+	current_date = (current_date + conv_t[8] + conv_t[9] + "-");
+	current_date = (current_date + conv_t[20] + conv_t[21] + conv_t[22] + conv_t[23] + " ");
+
+	// get time
+	for (int i = 11; i < 19; i++)
+		current_date += conv_t[i];
+
+/*
+0123456789 0123456789 01234
+Www Mmm dd  hh:mm:ss  yyyy
+*/
 }
 
-// verify ID provider
-bool provider::verify_provider_ID(int ID)
+int service::parse_date(string date)
 {
-    if (this->provider_ID == ID)
-        return true;
-    return false;
+	int sum = 0;
+	for (unsigned int i = 0; i < date.size(); i++) {
+		int pos = 1;
+		for (int j = (date.size() - (i+1)); j > 0; j--) {
+			pos *= 10;
+		}
+		sum += (date[i] * pos);
+	}
+	return sum;
 }
 
-//operator overloading
+bool service::check_date(string m, string d, string y)
+{
+	int month = parse_date(m), day = parse_date(d), year = parse_date(y);
 
-bool provider::operator < (const provider &to_compare) const{
-    if(provider_ID < to_compare.provider_ID){
-        return true;
-    }
-    return false;
+	if (month < '1' || month > ('1'*10)+'2' || day < '1')
+		return false;
+
+	switch(month) {
+		case '1':
+		case '3':
+		case '5':
+		case '7':
+		case '8':
+		case ('1'*10)+'0':
+		case ('1'*10)+'2':
+			if (day > ('3'*10)+'1')
+				return false;
+			break;
+		case '4':
+		case '6':
+		case '9':
+		case ('1'*10)+'1':
+			if (day > ('3'*10)+'0')
+				return false;
+			break;
+		case '2':
+			if (day > ('2'*10)+'8')
+				return false;
+			break;
+		default:
+			return false;
+	}
+
+	if (year < parse_date("1970") || year > parse_date("2023"))
+		return false;
+
+	return true;
 }
 
-bool provider::operator > (const provider &to_compare) const{
-    if(provider_ID > to_compare.provider_ID){
-        return true;
-    }
-    return false;
-}
-bool provider::operator == (const provider &to_compare) const{
-    if(provider_ID == to_compare.provider_ID){
-        return true;
-    }
-    return false;
+string service::prep_str(string to_prep)
+{
+	string temp;
+	for (unsigned int i = 0; i < to_prep.size(); i++)
+		temp[i] = tolower(to_prep[i]);
+	return temp;
 }
 
-int provider::get_provider_ID() const
-{ 
-    return this->provider_ID;
+void service::capitalize_name()
+{
+	name[0] = toupper(name[0]);
+	for (unsigned int i = 1; i < name.size(); i++) {
+		if (name[i-1] == ' ')
+			name[i] = toupper(name[i]);
+		else name[i] = tolower(name[i]);
+	}
+
 }
 
-float provider::get_total_fee() const
-{ 
-    return this->total_fee;
+
+
+service_directory::service_directory()
+{
+	// attempt to access database to load services
+	ifstream ifile("databases/available_services.txt", ios_base::in);
+	if (!ifile) {
+		cerr << "\n\nCould not connect to services database.\n\n";
+		ifile.close();
+		return;
+	}
+
+	entry temp;
+
+	// load services for quicker access from app
+	do {
+		// check if connected
+		if (ifile) {
+			ifile >> temp.code;	// test read
+
+			// if test read passed, read rest of service info
+			if (!ifile.eof() && ifile.is_open()) {
+				ifile.ignore();
+
+				getline(ifile, temp.name, '~');
+
+				ifile >> temp.cost;
+				ifile.ignore(100, '\n');
+
+				// add newly-read service
+				dir.push_back(temp);
+			}
+		}
+	} while (!ifile.eof());
+	ifile.close();
 }
 
-int provider::get_num_consul() const
-{ 
-    return this->num_consul;
+int service_directory::find_code_by_name(string name)
+{
+	int low = 0, high = (dir.size() - 1);
+	for ( ; low <= high; ) {
+		int mid = (low + high) / 2;
+
+		if (name == dir[mid].name)
+			return dir[mid].code;
+
+		if (name > dir[mid].name)
+			low = mid + 1;
+		else high = mid - 1;
+	}
+
+	return -1;
+}
+
+float service_directory::find_cost_by_name(string name)
+{
+	int low = 0, high = (dir.size() - 1);
+	for ( ; low <= high ; ) {
+		int mid = (low + high) / 2;
+
+		if (name == dir[mid].name)
+			return dir[mid].cost;
+
+		if (name > dir[mid].name)
+			low = mid + 1;
+		else high = mid - 1;
+	}
+
+	return -1.0;
+}
+
+void service_directory::display_all()
+{
+	for (unsigned int i = 0; i < dir.size(); i++) {
+		cout << "\n\t" << dir[i].name
+			<< "\t(" << dir[i].code
+			<< ")\t$" << dir[i].cost << endl;
+	}
+}
+
+bool service_directory::is_code_valid(int to_check)
+{
+	for (unsigned int i = 0; i < dir.size(); i++) {
+		if (dir[i].code == to_check)
+			return true;
+	}
+
+	return false;
 }
