@@ -94,4 +94,3 @@ void manager::display_provider(BST_provider * manage_p) const
     manage_p->display_tree_();
 }
 // Manger manges the PROVIDER terminal - end
-
