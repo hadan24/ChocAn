@@ -151,7 +151,8 @@ void service::get_curr_date()
 {
 	char conv_t[26];
 	time_t t = time(NULL);
-	ctime_s(conv_t, 26, &t);
+	//ctime_s(conv_t, 26, &t);
+	ctime_r(&t, conv_t);
 	
 	// get date
 	switch(conv_t[4]+conv_t[5]+conv_t[6]) {

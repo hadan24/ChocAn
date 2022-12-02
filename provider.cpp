@@ -159,7 +159,7 @@ bool provider::verify_provider_ID(int ID)
 }
 
 //operator overloading
-
+/*
 bool provider::operator < (const provider &to_compare) const{
     if(provider_ID < to_compare.provider_ID){
         return true;
@@ -179,6 +179,47 @@ bool provider::operator == (const provider &to_compare) const{
     }
     return false;
 }
+*/
+bool provider::operator<(const provider &to_compare) const{
+    if(provider_ID < to_compare.provider_ID){
+        return true;
+    }
+    return false;
+}
+
+bool provider::operator>(const provider &to_compare) const{
+    if(provider_ID > to_compare.provider_ID){
+        return true;
+    }
+    return false;
+}
+
+bool provider::operator>(const int ID_compare) const
+{
+    if(provider_ID > ID_compare)
+        return true;
+
+    return false;
+}
+
+//needed for BST
+bool provider::operator==(const provider &to_compare) const
+{
+    if(provider_ID == to_compare.provider_ID)
+        return true;
+
+    return false;
+}
+
+//needed for BST
+bool provider::operator==(const int ID_compare) const
+{
+    if(provider_ID == ID_compare)
+        return true;
+    return false;
+}
+
+
 
 int provider::get_provider_ID() const
 { 
