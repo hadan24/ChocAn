@@ -310,11 +310,6 @@ bool member_node::equal(int compare)
     return *member_data == compare;
 }
 
-BST_member::BST_member()
-{
-    root = NULL;
-}
-
 BST_member::~BST_member()
 {
     if(root)
