@@ -12,7 +12,7 @@ provider::provider(const provider &copy) : model(copy), num_consul(copy.num_cons
 {
     this -> service_provided = new service(*copy.service_provided);
 }
-provider:: provider (const string& p_first, const string& p_last,
+provider::provider (const string& p_first, const string& p_last,
                     const string & p_address,const string & p_city,const string & p_state,int p_zip,
                     const string & p_email, int num_consul,  int p_ID,float total_fee, service *list)
 {
@@ -75,7 +75,7 @@ void provider:: display_summary () const
 
 }
 
-void provider:: write_file() 
+void provider::write_file() 
 {
     float total_fee;
     int total_num;
