@@ -7,7 +7,6 @@
 #include <cctype>
 #include <vector>
 #include <iomanip>
-#include <map>
 #include <fstream>
 
 using namespace std;
@@ -120,23 +119,61 @@ class service
     public:
         service();
     
-        void input();
+        void create();
         void display() const;
-        void update_info();
-		// not sure who should handle writing to disk
-		static void show_available_services();	// display provider directory
-
-		// if provider class handles writing to disk, will include getter
-		// functions so they can access the proper information to print reports
+		int compare_dates(service &to_cmp);	// works like strcmp, calling obj is on left, arg is on right
+		void read_from_disk();
+		float get_cost();
 
     protected:
-		void load_available_services();
-		static map<int, string> available_services;
+		// create() helper functions
+		void enter_date();
+		void get_service_dir_data();
+		void get_curr_date();
+		void capitalize_name();
 
-		string date_of_service;
-		int service_code;
-        string service_name;
+		// error/input checking functions
+		int parse_date(string date);	// turns date strings into nums for comparisons
+		bool check_date(string m, string d, string y);	// checks if date passed is valid
+		string prep_str(string to_prep);	// makes string all lowercase for comparisons
+
+		string date_of_service;		// MM-DD-YYYY
+		int code;
+        string name;
         string comments;
-		float service_cost;
-		string current_date;
+		float cost;
+		string current_date;	// MM-DD-YYYY HH:MM:SS
+};
+
+class service_list
+{
+	public:
+		void add_new_service_record();
+		void display_all_services();
+		float total_cost();
+		int num_services();
+
+	private:
+		vector<service> list;
+};
+
+class service_directory
+{
+	public:
+		service_directory();
+
+		// both return -1 on failure
+		int find_code_by_name(string name);
+		float find_cost_by_name(string name);				
+
+		void display_all();
+		bool is_code_valid(int to_check);
+
+	private:
+		struct entry {
+			string name;
+			int code;
+			float cost;
+		};
+		vector<entry> dir;
 };
