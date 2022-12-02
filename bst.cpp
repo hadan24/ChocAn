@@ -46,6 +46,15 @@ void provider_node::display()
     provider_data->display();
 }
 
+/*
+    Ryan Addition: Provider data getter
+*/
+
+provider* provider_node::retrieve_provider_data()
+{
+    return provider_data;
+}
+
 //operator overloading stuff below
 bool provider_node::greater(provider *& compare)
 {
@@ -220,6 +229,53 @@ bool BST_provider::display_ID(int ID, provider_node *& root)
     return found;
 }
 
+/*
+    Ryan Additions: Search and retrieve
+*/
+
+bool BST_provider::search_by_ID(int ID)
+{
+    return search_ID(ID, root);
+}
+
+bool BST_provider::search_ID(int ID, provider_node *& root)
+{
+    if(!root)
+        return false;
+
+    bool found = false;
+    found = display_ID(ID, root->go_left());
+    if(root->equal(ID))
+    {
+        return true;
+    }
+    found = display_ID(ID, root->go_right());
+
+    return found;
+}
+
+provider* BST_provider::retrieve_provider(int ID)
+{
+    return retrieve_provider(ID, root);
+}
+
+provider* BST_provider::retrieve_provider(int ID, provider_node *& root)
+{
+    if(!root)
+        return NULL;
+
+    
+    display_ID(ID, root->go_left());
+    if(root->equal(ID))
+    {
+        return root->retrieve_provider_data();
+    }
+    display_ID(ID, root->go_right());
+
+    return NULL;
+}
+
+
 int BST_provider::count_nodes()
 {
     if(!root)
@@ -294,6 +350,14 @@ void member_node::display()
     member_data->display();
 }
 
+/*
+    Ryan Addition: Getter for member data
+*/
+member* member_node::retrieve_member_data()
+{
+    return member_data;
+}
+
 //operator overloading stuff
 bool member_node::greater(member *& compare)
 {
@@ -308,6 +372,11 @@ bool member_node::greater(int compare)
 bool member_node::equal(int compare)
 {
     return *member_data == compare;
+}
+
+BST_member::BST_member()
+{
+    root = NULL;
 }
 
 BST_member::~BST_member()
@@ -455,6 +524,55 @@ bool BST_member::display_ID(int ID, member_node *& root)
 
     return found;
 }
+
+/*
+    Ryan BST Addition: search by ID
+*/
+bool BST_member::search_by_ID(int ID)
+{
+    return search_ID(ID, root);
+}
+
+bool BST_member::search_ID(int ID, member_node *& root)
+{
+    if(!root)
+        return false;
+
+    bool found = false;
+    found = search_ID(ID, root->go_left());
+    if(root->equal(ID))
+    {
+        return true;
+    }
+    found = search_ID(ID, root->go_right());
+
+    return found;
+}
+
+member* BST_member::retrieve_member(int ID)
+{
+    return retrieve_member(ID, root);
+}
+
+member* BST_member::retrieve_member(int ID, member_node *& root)
+{
+    if(!root)
+        return NULL;
+
+    
+    search_ID(ID, root->go_left());
+    if(root->equal(ID))
+    {
+        return root->retrieve_member_data();
+    }
+    search_ID(ID, root->go_right());
+
+    return NULL;
+} 
+
+/*
+    End Ryan Additions
+*/
 
 void BST_member::display_tree_()
 {
