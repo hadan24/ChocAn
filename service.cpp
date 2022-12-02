@@ -126,8 +126,10 @@ void service::enter_date()
 		getline(cin, y, '\n');
 
 		valid = check_date(m, d, y);
-		if (!valid)
+		if (!valid) {
 			cout << "\n\tInvalid date. Please check your entry and try again.\n" << endl;
+			cout << "\tRe-enter Date of service (MM-DD-YYYY): ";
+		}
 	} while (!valid);
 
 	date_of_service = m + "-" + d + "-" + y;
@@ -140,8 +142,10 @@ void service::get_service_dir_data()
 		getline(cin, name, '\n');
 		code = available_services.find_code_by_name(prep_str(name));
 		
-		if (code < 0)
+		if (code < 0) {
 			cout << "\n\tInvalid service name. Please check your entry and try again.\n" << endl;
+			cout << "\tRe-enter name of service provided:  ";
+		}
 	} while (code < 0);
 	cost = available_services.find_cost_by_name(name);
 	capitalize_name();

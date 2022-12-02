@@ -92,6 +92,8 @@ class provider: public model
 		// vector<service> services_provided;
 };
 
+class service_list;
+
 class member: public model  // @anhho
 {
     public: 
@@ -107,7 +109,8 @@ class member: public model  // @anhho
             const string& , //email
             const bool& ,   //status
             int ,           //ID
-            float           //fee
+            float,           //fee
+            service_list *
         );     
 
         ~member();
@@ -135,7 +138,7 @@ class member: public model  // @anhho
         bool status_mem; // true: valid   |    false: invalid
         int member_ID;
         float fee_mem;
-		// vector<service> services_received;
+    	service_list *service_provided;
 };  
 
 class service

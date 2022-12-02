@@ -8,11 +8,22 @@ int main()
     
     // testing member class 
     member test_mem;
-    test_mem.input();
-    test_mem.display();
-    //test_mem.update_status();
-    test_mem.update_info();
-    test_mem.display();
+    // test_mem.input();
+    // test_mem.display();
+    // //test_mem.update_status();
+    // test_mem.update_info();
+    // test_mem.display();
+    test_mem.read_file("data_member.txt");
+
+//    service_list *s1 = new service_list;
+
+//    s1->add_new_service_record();
+//    s1->display_all_services();
+//    s1->add_new_service_record();
+//    s1->add_new_service_record();
+
+  
+
 
 /* Leaving all these comments here for now for future reference of testing or how to use classes - Dan
     // testing member class 

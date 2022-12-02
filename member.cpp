@@ -3,26 +3,31 @@
 #include "chocan.h"
 
 // initialize
-member::member() : status_mem("false"), member_ID(000), fee_mem(000)
+member::member() : status_mem("false"), member_ID(000), fee_mem(000), service_provided(nullptr)
 {
 }
 
 // copy constructor for member class
 member::member(const member &copy) : model(copy), status_mem(copy.status_mem), member_ID(copy.member_ID), fee_mem(copy.fee_mem)
 {
+    this -> service_provided = new service_list(*copy.service_provided);
 }
 member::member(
     const string& t_first,
     const string& t_last, const string& t_address, const string& t_city, 
     const string& t_state, int t_zipcode, const string& t_email, 
-    const bool& t_status, int t_ID, float t_fee):
+    const bool& t_status, int t_ID, float t_fee, service_list * m_list):
     model(t_first, t_last, t_address, t_state, t_city, t_zipcode, t_email)
-    , status_mem(t_status), member_ID(t_ID), fee_mem(t_fee) 
-{}
+    , status_mem(t_status), member_ID(t_ID), fee_mem(t_fee), service_provided(m_list)
+{
+}
 
 member::~member()
 {
-    // since we dont allocate memory of any variables, nothing here
+    if (service_provided) {
+        delete service_provided;
+        service_provided = NULL;
+    }
 }
 
 void member::input()
@@ -58,6 +63,8 @@ void member::display() const
         cout << "INVALID!";
 
     cout << "\n\tThe fee of the membership          :  " << fee_mem;
+
+    service_provided->display_all_services();
 }
 
 // verify ID number
@@ -157,10 +164,12 @@ void member::read_file(const string &file_name) const
             readFile >> t_id;
             readFile.ignore(1,'|');
             readFile >> t_fee;
+            service_list * t_list = new service_list();
+         //   t_list->add_new_service_record();
             member get_new_member(t_first, t_last, t_address, t_city, t_state
-                                , t_zipcode, t_email, t_status, t_id, t_fee);
+                                , t_zipcode, t_email, t_status, t_id, t_fee, t_list);
             // testing a new object work or not
-            // get_new_member.display();
+             get_new_member.display();
         }
         return;
     }
