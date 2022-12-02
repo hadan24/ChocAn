@@ -151,7 +151,7 @@ void service::get_curr_date()
 {
 	char conv_t[26];
 	time_t t = time(NULL);
-	ctime_s(conv_t, 26, &t);
+	ctime_r(&t, conv_t);
 	
 	// get date
 	switch(conv_t[4]+conv_t[5]+conv_t[6]) {
@@ -174,11 +174,6 @@ void service::get_curr_date()
 	// get time
 	for (int i = 11; i < 19; i++)
 		current_date += conv_t[i];
-
-/*
-0123456789 0123456789 01234
-Www Mmm dd  hh:mm:ss  yyyy
-*/
 }
 
 int service::parse_date(string date)
@@ -235,10 +230,12 @@ bool service::check_date(string m, string d, string y)
 
 string service::prep_str(string to_prep)
 {
-	string temp;
-	for (unsigned int i = 0; i < to_prep.size(); i++)
+	unsigned int i = 0;
+	char temp[to_prep.size() + 1];
+	for ( ; i < to_prep.size(); i++)
 		temp[i] = tolower(to_prep[i]);
-	return temp;
+	temp[i] = '\0';
+	return string(temp);
 }
 
 void service::capitalize_name()
