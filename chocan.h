@@ -8,6 +8,7 @@
 #include <vector>
 #include <iomanip>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -71,7 +72,7 @@ class service
         void create();
         void display() const;
 		int compare_dates(service &to_cmp);	// works like strcmp, calling obj is on left, arg is on right
-		void read_from_disk();
+		void read_from_disk(ifstream &ifile);
 		float get_cost();
 
     protected:
@@ -102,6 +103,7 @@ class service_list
 		void add_new_service_record();
 		void display_all_services();
 		float total_cost();
+		void read_from_disk(ifstream &ifile);
 		int num_services();
 
 	private:
@@ -150,20 +152,26 @@ class member: public model  // @anhho
 
         ~member();
         void input();
-        void display() const;
-        void read_file(const string& file_name, BST_member& m_tree) const;
+	void set_input(int ID, bool status, float fee);
+        void display(std::ostream&) const;
+        void read_file(const string& file_name) const;
         void update_info();
+		void read_file(const string &file_name, BST_member& m_tree) const;
 
         bool verify_ID(int ID_check);
         bool update_status();
         bool display_summary();
         void write_reports();
-
-        void set_service_provided(service_list* list);
+	
+	//setters
+	void set_ID(int ID);
+	void set_status(bool choice);
         void set_service_list();
 
+	//getters
         float get_fee_mem();
-        int get_member_ID();    // provider may need this.. hmm.. 
+        int get_member_ID();   
+	bool get_status_mem();
 
         //operator overloading
         bool operator<(const member &to_compare) const; //sorting by ID member
@@ -187,8 +195,9 @@ class provider: public model
         provider(const string&, const string&,const string &,const string &,const string &, int, const string &, int, int, float, service_list*);
         ~provider();
         void input();
-        void display() const;
-        void read(const string& file_name, BST_provider& p_tree) const;
+	void setInput(int ID, int num, int fee);
+	void display(std::ostream&) const;
+        void read(const string& file_name) const;
         void update_info();
 
         bool check_service_code(int service_code); 
@@ -197,11 +206,10 @@ class provider: public model
         void write_file();
         bool verify_provider_ID(int ID);
 
-        void set_service_provided(service_list* list);
-
         int get_provider_ID() const;
         int get_num_consul() const;
         float get_total_fee() const;
+	void set_ID(int ID);
 
         //operator overloading
         bool operator>(const provider & to_compare) const;

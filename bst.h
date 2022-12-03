@@ -1,8 +1,4 @@
- //----
-
 #include "chocan.h"
-#pragma once
-
 
 class provider_node
 {   

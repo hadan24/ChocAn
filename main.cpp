@@ -2,8 +2,6 @@
 
 int main()
 {
-    cout << "Did somebody say...chocolate?" << endl;
-
     /*General Variables Block*/
     int menu_ID; //This variable is for testing the menu: this would be the class member's ID
     char menu_input;
@@ -18,10 +16,12 @@ int main()
 
     /*Structures Block*/
     BST_member member_tree;
+    
     BST_provider provider_tree;
 
     /* Service Block*/
     service_list serve_list;
+    service_list* serve_list_ptr = &serve_list;
     service_directory serve_dir;
 
     load_member_data("data_member.txt", member_tree);
@@ -62,13 +62,8 @@ int main()
                     }
                     cout << "Searching ID..." << endl;
                     break;
-
                 // case 'c':
-                    /*
-                        Charging members case was never implemented
-                        In a way that could be called by a user
-                    */
-                //     cout << "Charging Member..." << endl; 
+                //     cout << "Charging Member..." << endl;  *No built functionality?*
                 //     break;
                 case 'd':
                     cout << "Displaying Provider Directory" << endl << endl;
@@ -110,7 +105,7 @@ int main()
                     break;
                 case 'o':
                     /*
-                        No integrated functionality yet
+                        No functionality yet
                     */
                     cout << "Requesting Provider Report" << endl;
                     break;
@@ -150,7 +145,7 @@ int main()
                     tempID = query_ID();
                     if (member_tree.search_by_ID(tempID)) {
                         member_ptr = member_tree.retrieve_member(tempID);
-                        member_ptr->display();
+                        member_ptr->display(cout);
                     }
                     else {
                         cout << "Member ID not found..." << endl;
@@ -177,7 +172,7 @@ int main()
             switch (menu_input) {
                 case 'p':
                     /*
-                        No Integrated functionality yet
+                        No functionality yet
                     */
                     cout << "Printing Weekly Report" << endl;
                     break;
@@ -324,7 +319,7 @@ void manager_menu()
     print_line_break();
     cout << "u: Update Member Information" << endl;
     print_line_break();
-    cout << "s: Update Provider Information" << endl;
+    cout << "s: Update Provider Information [Nonfunctional]" << endl;
     print_line_break();
     cout << "q: Quit" << endl << endl;
     print_line_break();
@@ -370,12 +365,13 @@ void load_member_data(string file, BST_member& m_tree)
     Breaks all of our code for some reason. Unable to
     determine a solution
 *****************************************************/
+/*
 void load_provider_data(string file, BST_provider& p_tree)
 {
     provider temp_reader;
 
     temp_reader.read(file, p_tree);
 }
-
+*/
 
 
