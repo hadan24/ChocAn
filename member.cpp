@@ -1,6 +1,6 @@
 // @anhho
 // miss reading a txt file into data
-#include "bst.h"
+#include "chocan.h"
 
 // initialize
 member::member() : status_mem("false"), member_ID(000), fee_mem(000), service_provided(nullptr)
@@ -32,33 +32,23 @@ member::~member() //if I get rid we get mem leaks, if not invalid free
 
 void member::input()
 {
-    int ID;
-    bool status;
-    float fee;
-
     cout << "\n\t\t[ADDING A NEW MEMBER]"; // testing
     // call the model input to ask an user to enter personal data
     model::input();
 
     cout << "\n\tEnter the ID of the membership      :  ";
-    cin >> ID;
+    cin >> member_ID;
 
     // first time adding a new member. it should be valid as i think
     cout << "\tThe status of the membership         : Valid ";
-    status = true;
+    status_mem = true;
 
     cout << "\n\tEnter the fee of the membership      :  ";
-    cin >> fee;
+    cin >> fee_mem;
 
-   set_input(ID, status, fee);
-}
+    service_provided = new service_list();
+    service_provided->add_new_service_record();
 
-void member::set_input(int ID, bool status, float fee)
-{
-         // call the model input to ask an user to enter personal data
-         member_ID = ID;
-         status_mem = status;
-         fee_mem = fee;
 }
 
 void member::display(std::ostream& cout = std::cout) const
@@ -197,9 +187,9 @@ void member::read_file(const string &file_name, BST_member& m_tree) const
             member get_new_member(t_first, t_last, t_address, t_city, t_state
                                    , t_zipcode, t_email, t_status, t_id, t_fee, t_list);
 
-            member* temp_mem = &get_new_member;
+            //member* temp_mem = &get_new_member;
 
-            m_tree.add_new_member_(temp_mem);
+            //m_tree.add_new_member_(temp_mem);
         }
         return;
     }

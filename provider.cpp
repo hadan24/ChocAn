@@ -1,6 +1,6 @@
 // Linh Nguyen
 
-#include "bst.h"
+#include "chocan.h"
 
 // initialize
 provider::provider() : num_consul(000), total_fee(000), provider_ID(000) , service_provided(nullptr)
@@ -150,9 +150,9 @@ void provider::read(const string &file_name) const
             service_list * t_list = new service_list();
 			t_list->read_from_disk(INFILE);
             
-            provider new_provider(p_first, p_last, p_address, p_city, p_state
-                               , p_zipcode, p_email, num_consul,total_fee, provider_ID, t_list);
-            provider* temp_prov = &new_provider;
+            //provider new_provider(p_first, p_last, p_address, p_city, p_state
+            //                   , p_zipcode, p_email, num_consul,total_fee, provider_ID, t_list);
+            //provider* temp_prov = &new_provider;
 			//this would have worked similarly to member class' read function
         }
         return;

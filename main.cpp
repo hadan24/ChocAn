@@ -21,10 +21,10 @@ int main()
 
     /* Service Block*/
     service_list serve_list;
-    service_list* serve_list_ptr = &serve_list;
+    //service_list* serve_list_ptr = &serve_list;
     service_directory serve_dir;
 
-    load_member_data("data_member.txt", member_tree);
+    //load_member_data("data_member.txt", member_tree);
     //load_provider_data("provider.txt", provider_tree);
 
 
@@ -353,12 +353,14 @@ char query_menu()
 /*******************************************************
     Loads member data from a text file into a member BST
 ********************************************************/
+/*
 void load_member_data(string file, BST_member& m_tree)
 {
     member temp_reader;
 
     temp_reader.read_file(file, m_tree);
 }
+*/
 
 /****************************************************
     Loads provider data from a text file into a BST.

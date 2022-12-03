@@ -154,7 +154,6 @@ class member: public model  // @anhho
         void input();
 	void set_input(int ID, bool status, float fee);
         void display(std::ostream&) const;
-        void read_file(const string& file_name) const;
         void update_info();
 		void read_file(const string &file_name, BST_member& m_tree) const;
 

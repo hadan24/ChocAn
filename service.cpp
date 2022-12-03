@@ -45,6 +45,7 @@ void service_list::read_from_disk(ifstream &ifile)
 	list.push_back(temp);
 }
 
+
 int service_list::num_services() { return list.size(); }
 
 
