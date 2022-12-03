@@ -35,18 +35,23 @@ void model::input()
 
     cout << "\n\n\tEnter your fist name        : ";
     getline(cin, first_name);
+    cin.ignore();
 
     cout << "\tEnter your last name        : ";
     getline(cin, last_name);
+    cin.ignore()
 
     cout << "\tEnter your home address     : ";
     getline(cin, address);
+    cin.ignore()
 
     cout << "\tEnter your city             : ";
     getline(cin, city);
+    cin.ignore()
 
     cout << "\tEnter your state            : ";
     getline(cin, state);
+    cin.ignore()
 
     //,, zipcode input
     do
