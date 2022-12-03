@@ -1,5 +1,5 @@
 // @anhho
-// miss reading a txt file into data
+
 #include "chocan.h"
 
 // initialize
@@ -19,8 +19,7 @@ member::member(
     const bool& t_status, int t_ID, float t_fee, service_list * m_list):
     model(t_first, t_last, t_address, t_state, t_city, t_zipcode, t_email)
     , status_mem(t_status), member_ID(t_ID), fee_mem(t_fee), service_provided(m_list)
-{
-}
+{}
 
 member::~member()
 {
@@ -33,18 +32,20 @@ member::~member()
 void member::input()
 {
     cout << "\n\t\t[ADDING A NEW MEMBER]"; // testing
-    // call the model input to ask an user to enter personal data
-    model::input();
+    // // call the model input to ask an user to enter personal data
+    // model::input();
 
-    cout << "\n\tEnter the ID of the membership      :  ";
-    cin >> member_ID;
+    // cout << "\n\tEnter the ID of the membership      :  ";
+    // cin >> member_ID;
 
-    // first time adding a new member. it should be valid as i think
-    cout << "\tThe status of the membership         : Valid ";
-    status_mem = true;
+    // // first time adding a new member. it should be valid as i think
+    // cout << "\tThe status of the membership         : Valid ";
+    // status_mem = true;
 
     cout << "\n\tEnter the fee of the membership      :  ";
     cin >> fee_mem;
+    service_provided = new service_list();
+    service_provided->add_new_service_record();
 
 }
 

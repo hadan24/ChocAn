@@ -23,6 +23,7 @@ provider_node::provider_node(provider *& copy)
 {
     left = right = NULL;
     provider_data = new provider(*copy);
+
 }
 
 provider_node::~provider_node()

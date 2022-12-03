@@ -78,6 +78,7 @@ class member: public model  // @anhho
         );     
 
         ~member();
+        void copy_data(const member & copy);
         void input();
         void display() const;
         void read_file(const string& file_name) const;
@@ -139,6 +140,7 @@ class service
 class service_list
 {
 	public:
+        service_list(){}; 
 		void add_new_service_record();
 		void display_all_services();
 		float total_cost();
