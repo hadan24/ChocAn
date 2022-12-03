@@ -1,16 +1,5 @@
-//contains definitions for BST stuff
-//feel free to make changes as needed
-/*
-11/18/2022 - Anh Ho
-----
-Note: I am not sure data members should have for the manager terminal. 
-It seems like they just need to access 2 terminals (provider and member) to modify those data  
-If you have another way to reduce functions or good way to pass variables, please feel free to update 
-what I have done: 
-I have added BST_provider and BST_member functions without implementation 
-I have implemented Manager classes including data members and a few functions. 
-----
-*/
+ //----
+
 #include "chocan.h"
 #pragma once
 
