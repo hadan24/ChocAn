@@ -1,6 +1,6 @@
 // Linh Nguyen
 
-#include "bst.h"
+#include "chocan.h"
 
 // initialize
 provider::provider() : num_consul(000), total_fee(000), provider_ID(000) , service_provided(nullptr)
@@ -28,33 +28,44 @@ provider::~provider()
 
 void provider:: input()
 {
+    int ID;
+    int num;
+    int fee;
+
     cout << "\n\t\t[ADDING A NEW PROVIDER]";
 
     //call the model input to ask personal data of provider
     model::input();
     cout << "\n\tEnter the ID of the membership:  ";
-    cin >> provider_ID;
+    cin >> ID;
 
     cout << "\n\tEnter the number of consultant:  ";
-    cin >> num_consul;
+    cin >> num;
 
     cout << "\n\tEnter the fee of consultant:  ";
-    cin >> total_fee;
+    cin >> fee;
 
     cout << "\n\tThe service list:  ";
-    service_provided = new service_list();
     service_provided -> add_new_service_record();
                                 
+    setInput(ID, num, fee);
+}   
+
+void provider:: setInput(int ID, int num, int fee)
+{   
+        provider_ID = ID;
+        num_consul = num;
+        total_fee = fee;
 }
 
-void provider:: display() const
+void provider:: display(std::ostream& cout = std::cout) const
 {
     
     //same input () we need to call the function from the model to display some info
     model::display();
     cout << "\n\tThe ID of the provider:  " << provider_ID;
 
-    cout << "\n\tThe number of consultant " << num_consul;
+    cout << "\n\tThe number of consultations:  " << num_consul;
 
     cout << "\n\tThe fee of the membership:  " << total_fee;
 
@@ -99,7 +110,7 @@ void provider:: display_directory()
     //service_provided -> check_code(check);
 }*/
 
-void provider::read(const string &file_name, BST_provider& p_tree) const
+void provider::read(const string &file_name) const
 {
     string p_first;
     string p_last;
@@ -134,14 +145,11 @@ void provider::read(const string &file_name, BST_provider& p_tree) const
             readFile >> total_fee;
             readFile.ignore(1,'|');
             readFile >> provider_ID;
-            service_list * t_list = new service_list();
             
-            provider new_provider(p_first, p_last, p_address, p_city, p_state
-                               , p_zipcode, p_email, num_consul,total_fee, provider_ID, t_list);
-
-            provider* temp_prov = &new_provider;
-
-            p_tree.add_new_provider_(temp_prov);
+            //provider new_provider(p_first, p_last, p_address, p_city, p_state
+            //                    , p_zipcode, p_email, num_consul,total_fee, provider_ID, list);
+            
+            //new_provider.display();
         }
         return;
     }
@@ -160,6 +168,11 @@ bool provider::verify_provider_ID(int ID)
     if (this->provider_ID == ID)
         return true;
     return false;
+}
+
+void provider::set_ID(int ID)
+{   
+        this->provider_ID = ID;
 }
 
 //operator overloading

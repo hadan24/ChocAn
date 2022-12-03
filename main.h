@@ -12,6 +12,3 @@ void print_line_break();
 //Query Block
 int query_ID();
 char query_menu();
-
-void load_member_data(string file, BST_member& m_tree);
-void load_provider_data(string file, BST_provider& p_tree);
