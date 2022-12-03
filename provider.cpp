@@ -1,6 +1,6 @@
 // Linh Nguyen
 
-#include "chocan.h"
+#include "bst.h"
 
 // initialize
 provider::provider() : num_consul(000), total_fee(000), provider_ID(000) , service_provided(nullptr)
@@ -42,6 +42,7 @@ void provider:: input()
     cin >> total_fee;
 
     cout << "\n\tThe service list:  ";
+    service_provided = new service_list();
     service_provided -> add_new_service_record();
                                 
 }
@@ -98,7 +99,7 @@ void provider:: display_directory()
     //service_provided -> check_code(check);
 }*/
 
-void provider::read(const string &file_name) const
+void provider::read(const string &file_name, BST_provider& p_tree) const
 {
     string p_first;
     string p_last;
@@ -133,11 +134,14 @@ void provider::read(const string &file_name) const
             readFile >> total_fee;
             readFile.ignore(1,'|');
             readFile >> provider_ID;
+            service_list * t_list = new service_list();
             
-            //provider new_provider(p_first, p_last, p_address, p_city, p_state
-            //                    , p_zipcode, p_email, num_consul,total_fee, provider_ID, list);
-            
-            //new_provider.display();
+            provider new_provider(p_first, p_last, p_address, p_city, p_state
+                               , p_zipcode, p_email, num_consul,total_fee, provider_ID, t_list);
+
+            provider* temp_prov = &new_provider;
+
+            p_tree.add_new_provider_(temp_prov);
         }
         return;
     }
@@ -219,7 +223,10 @@ bool provider::operator==(const int ID_compare) const
     return false;
 }
 
-
+void provider::set_service_provided(service_list* list)
+{
+    this->service_provided = list;
+}
 
 int provider::get_provider_ID() const
 { 

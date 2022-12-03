@@ -7,13 +7,13 @@ int main()
     cout << "Did somebody say...chocolate?" << endl;
     
     // testing member class 
-    member test_mem;
+    //member test_mem;
     // test_mem.input();
     // test_mem.display();
     // //test_mem.update_status();
     // test_mem.update_info();
     // test_mem.display();
-    test_mem.read_file("data_member.txt");
+    //test_mem.read_file("data_member.txt");
 
 //    service_list *s1 = new service_list;
 
@@ -74,7 +74,7 @@ int main()
 
 	// Ryan's menu stuff
 
-    /*General Variables Block*/
+    General Variables Block*/
     int menu_ID; //This variable is for testing the menu: this would be the class member's ID
     char menu_input;
     int tempID; //Variable for individual cases that need an ID input
@@ -90,6 +90,12 @@ int main()
     BST_member member_tree;
     
     BST_provider provider_tree;
+
+    service_list serve_list;
+    service_directory serve_dir;
+
+    load_member_data("data_member.txt", member_tree);
+    //load_provider_data("provider.txt", provider_tree);
 
 
     print_header();
@@ -127,9 +133,9 @@ int main()
                 //     cout << "Charging Member..." << endl;  *No built functionality?*
                 //     break;
                 case 'd':
-                    /*
-                        No functionality yet
-                    */
+                    cout << "Displaying Provider Directory" << endl << endl;
+                    cout << "List of services and codes as follows:" << endl << endl;
+                    serve_dir.display_all();
                     cout << "Requesting Provider Directory..." << endl;
                     break;
                 case 'a':
@@ -187,6 +193,7 @@ int main()
             menu_input = query_menu();
             switch (menu_input) {
                 case 's':
+
                     cout << "Requesting service..." << endl << endl;
                     break;
                 case 'r':
@@ -260,21 +267,21 @@ int main()
                     }
                     cout << "Updating Member Information..." << endl;
                     break;
-                // case 's':
-                //     cout << "Please Enter the ID of the provider you would " <<
-                //              "like to update: ";
-                //     tempID = query_ID();
+                case 's':
+                    cout << "Please Enter the ID of the provider you would " <<
+                             "like to update: ";
+                    tempID = query_ID();
 
-                //     if (provider_tree.search_by_ID(tempID)) {
-                //         provider_ptr = provider_tree.retrieve_provider(tempID); **No functionality?**
-                //         provider_ptr->update_info();
-                //         cout << "Information Updated..." << endl << endl;
-                //     }
-                //     else {
-                //         cout << "Member ID Not Found..." << endl;
-                //     }
-                //     cout << "Updating Provider Information..." << endl;
-                //     break;
+                    if (provider_tree.search_by_ID(tempID)) {
+                        provider_ptr = provider_tree.retrieve_provider(tempID);
+                        provider_ptr->update_info();
+                        cout << "Information Updated..." << endl << endl;
+                    }
+                    else {
+                        cout << "Member ID Not Found..." << endl;
+                    }
+                    cout << "Updating Provider Information..." << endl;
+                    break;
                 case 'q':
                     cout << "Quitting..." << endl;
                     break;
@@ -383,5 +390,21 @@ char query_menu()
     cout << endl;
     return tolower(tempInput);
 }
+
+/*****************************************************/
+void load_member_data(string file, BST_member& m_tree)
+{
+    member temp_reader;
+
+    temp_reader.read_file(file, m_tree);
+}
+
+void load_provider_data(string file, BST_provider& p_tree)
+{
+    provider temp_reader;
+
+    temp_reader.read(file, p_tree);
+}
+
 
 

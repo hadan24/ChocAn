@@ -217,16 +217,14 @@ bool BST_provider::display_ID(int ID, provider_node *& root)
     if(!root)
         return false;
 
-    bool found = false;
-    found = display_ID(ID, root->go_left());
+    //bool found = true;
     if(root->equal(ID))
     {
         root->display();
         return true;
     }
-    found = display_ID(ID, root->go_right());
-
-    return found;
+    
+    return display_ID(ID, root->go_left()) + display_ID(ID, root->go_right());
 }
 
 /*
@@ -513,16 +511,13 @@ bool BST_member::display_ID(int ID, member_node *& root)
     if(!root)
         return false;
 
-    bool found = false;
-    found = display_ID(ID, root->go_left());
     if(root->equal(ID))
     {
         root->display();
         return true;
     }
-    found = display_ID(ID, root->go_right());
 
-    return found;
+    return display_ID(ID, root->go_left()) + display_ID(ID, root->go_right());
 }
 
 /*

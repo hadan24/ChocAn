@@ -12,6 +12,8 @@ I have implemented Manager classes including data members and a few functions.
 ----
 */
 #include "chocan.h"
+#pragma once
+
 
 class provider_node
 {   

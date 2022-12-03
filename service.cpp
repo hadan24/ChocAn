@@ -4,6 +4,13 @@
 #define NAME_SZ 20
 #define COMMENT_SZ 100
 
+service_list::service_list() {}
+service_list::service_list(const service_list &copy) 
+{
+	this->list = copy.list;
+	
+}
+
 service_directory available_services;
 
 void service_list::add_new_service_record()
@@ -12,7 +19,7 @@ void service_list::add_new_service_record()
 	temp.create();
 
 	vector<service>::iterator t = list.begin();
-	while ( ((*t).compare_dates(temp)) <= 0 )
+	while ( t < list.end() && ((*t).compare_dates(temp)) <= 0 )
 		t++;
 
 	list.insert(t, temp);
@@ -121,6 +128,7 @@ void service::enter_date()
 	char valid = 0;
 	cout << "\n\tDate of service (MM-DD-YYYY):  ";
 	do {
+		cin.ignore(100, '\n');
 		getline(cin, m, '-');
 		getline(cin, d, '-');
 		getline(cin, y, '\n');
@@ -155,7 +163,7 @@ void service::get_curr_date()
 {
 	char conv_t[26];
 	time_t t = time(NULL);
-	ctime_r(&t, conv_t);
+	//ctime_r(&t, conv_t);
 	
 	// get date
 	switch(conv_t[4]+conv_t[5]+conv_t[6]) {
@@ -258,7 +266,9 @@ void service::capitalize_name()
 service_directory::service_directory()
 {
 	// attempt to access database to load services
-	ifstream ifile("databases/available_services.txt", ios_base::in);
+	//ifstream ifile("databases/available_services.txt", ios_base::in);
+	ifstream ifile;
+	ifile.open("databases/available_services.txt");
 	if (!ifile) {
 		cerr << "\n\nCould not connect to services database.\n\n";
 		ifile.close();

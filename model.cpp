@@ -33,27 +33,32 @@ void model::input()
     bool check_email = false;
     bool check_zipcode = false;
 
-    cout << "\n\n\tEnter your fist name        : ";
+    cout << "\n\n\tEnter your first name: ";
     getline(cin, first_name);
+    cin.ignore();
 
-    cout << "\tEnter your last name        : ";
+    cout << "\tEnter your last name: ";
     getline(cin, last_name);
+    cin.ignore();
 
-    cout << "\tEnter your home address     : ";
+    cout << "\tEnter your home address: ";
     getline(cin, address);
+    cin.ignore();
 
-    cout << "\tEnter your city             : ";
+    cout << "\tEnter your city: ";
     getline(cin, city);
+    cin.ignore();
 
-    cout << "\tEnter your state            : ";
+    cout << "\tEnter your state: ";
     getline(cin, state);
+    cin.ignore(1000, '\n');
 
     //,, zipcode input
     do
     {
         try
         {
-            cout << "\tEnter your zipcode       : ";
+            cout << "\tEnter your zipcode: ";
             cin >> zipcode;
             cin.clear();
             if (zipcode == (int)zipcode && zipcode > 0)
@@ -66,26 +71,22 @@ void model::input()
                 check_zipcode = false;
             }
         }
-        catch (const char *exp)
+        catch (const char exp)
         {
-            cout << "\n\t***ERROR: " << exp;
-            cout << "\n\t****Please enter a valid zipcode with a number!****\n\t";
+            cout << "\n\t**ERROR: " << exp;
+            cout << "\n\tPlease enter a valid zipcode with a number!\n\t";
         }
         cin.ignore(1000, '\n');
-        cin.clear();
     } while (check_zipcode != true);
 
     //.. email input
-    do
-    {
-        cout << "\tEnter your email         : ";
-        getline(cin, email);
-        check_email = valid_email(email);
-        if (!check_email)
-        {
-            cout << "\n**Your email " << email << " is "
-                 << "INVALID. Please enter another one following (Eg: email@pdx.edu)\n\t";
-        }
+    do {
+    cout << "\tEnter your email: ";
+    getline(cin, email);
+    check_email = valid_email(email);
+      if (!check_email) {cout << "\n**Your email "<< email << " is "
+             << "INVALID. Please enter another one following (Eg: email@pdx.edu)\n\t\t";
+    }
     } while (!check_email);
 }
 

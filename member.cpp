@@ -1,6 +1,6 @@
 // @anhho
 // miss reading a txt file into data
-#include "chocan.h"
+#include "bst.h"
 
 // initialize
 member::member() : status_mem("false"), member_ID(000), fee_mem(000), service_provided(nullptr)
@@ -22,7 +22,7 @@ member::member(
 {
 }
 
-member::~member()
+member::~member() //if I get rid we get mem leaks, if not invalid free
 {
     if (service_provided) {
         delete service_provided;
@@ -45,6 +45,9 @@ void member::input()
 
     cout << "\n\tEnter the fee of the membership      :  ";
     cin >> fee_mem;
+
+    service_provided = new service_list();
+    service_provided->add_new_service_record();
 
 }
 
@@ -129,7 +132,7 @@ void member::update_info()
     model::update_info();
 }
 
-void member::read_file(const string &file_name) const
+void member::read_file(const string &file_name, BST_member& m_tree) const
 {
     ifstream INFILE(file_name);
     // temp variable to get input into data.
@@ -167,14 +170,23 @@ void member::read_file(const string &file_name) const
             service_list * t_list = new service_list();
          //   t_list->add_new_service_record();
             member get_new_member(t_first, t_last, t_address, t_city, t_state
-                                , t_zipcode, t_email, t_status, t_id, t_fee, t_list);
+                                   , t_zipcode, t_email, t_status, t_id, t_fee, t_list);
+
+            member* temp_mem = &get_new_member;
+
+            m_tree.add_new_member_(temp_mem);
             // testing a new object work or not
-             get_new_member.display();
+             //get_new_member.display();
         }
         return;
     }
     cerr << "ERROR: Failed to open file " << file_name << " for loading data!!!\n";
     exit(1);    
+}
+
+void member::set_service_provided(service_list* list)
+{
+    this->service_provided = list;
 }
 
 int member::get_member_ID(){ return this->member_ID;}

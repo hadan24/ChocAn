@@ -11,6 +11,9 @@
 
 using namespace std;
 
+class BST_member;
+class BST_provider;
+
 // Inheritance 
 //            Model
 //   proivder       member
@@ -58,52 +61,7 @@ class model  // @anhho
 
 class service_list;
 
-class member: public model  // @anhho
-{
-    public: 
-        member();
-        member(const member & copy); //copy constructor, if needed
-        member(
-            const string& , //first
-            const string& , //last
-            const string& , //address
-            const string& , //city
-            const string& , //state
-            int ,           //zipcode
-            const string& , //email
-            const bool& ,   //status
-            int ,           //ID
-            float,           //fee
-            service_list *
-        );     
-
-        ~member();
-        void input();
-        void display() const;
-        void read_file(const string& file_name) const;
-        void update_info();
-
-        bool verify_ID(int ID_check);
-        bool update_status();
-        bool display_summary();
-        void write_reports();
-
-        float get_fee_mem();
-        int get_member_ID();    // provider may need this.. hmm.. 
-
-        //operator overloading
-        bool operator<(const member &to_compare) const; //sorting by ID member
-        bool operator>(const member &to_compare) const; //sorting by ID member
-        bool operator>(const int ID_compare) const;
-        bool operator==(const member &to_compare) const;
-        bool operator==(const int ID_compare) const;
-
-    protected:
-        bool status_mem; // true: valid   |    false: invalid
-        int member_ID;
-        float fee_mem;
-    	service_list *service_provided;
-};  
+  
 
 class service
 {
@@ -139,6 +97,8 @@ class service
 class service_list
 {
 	public:
+        service_list();
+        service_list(const service_list &copy);
 		void add_new_service_record();
 		void display_all_services();
 		float total_cost();
@@ -169,6 +129,55 @@ class service_directory
 		vector<entry> dir;
 };
 
+class member: public model  // @anhho
+{
+    public: 
+        member();
+        member(const member & copy); //copy constructor, if needed
+        member(
+            const string& , //first
+            const string& , //last
+            const string& , //address
+            const string& , //city
+            const string& , //state
+            int ,           //zipcode
+            const string& , //email
+            const bool& ,   //status
+            int ,           //ID
+            float,           //fee
+            service_list *
+        );     
+
+        ~member();
+        void input();
+        void display() const;
+        void read_file(const string& file_name, BST_member& m_tree) const;
+        void update_info();
+
+        bool verify_ID(int ID_check);
+        bool update_status();
+        bool display_summary();
+        void write_reports();
+
+        void set_service_provided(service_list* list);
+
+        float get_fee_mem();
+        int get_member_ID();    // provider may need this.. hmm.. 
+
+        //operator overloading
+        bool operator<(const member &to_compare) const; //sorting by ID member
+        bool operator>(const member &to_compare) const; //sorting by ID member
+        bool operator>(const int ID_compare) const;
+        bool operator==(const member &to_compare) const;
+        bool operator==(const int ID_compare) const;
+
+    protected:
+        bool status_mem; // true: valid   |    false: invalid
+        int member_ID;
+        float fee_mem;
+        service_list *service_provided;
+};
+
 class provider: public model
 {
     public:
@@ -178,7 +187,7 @@ class provider: public model
         ~provider();
         void input();
         void display() const;
-        void read(const string& file_name) const;
+        void read(const string& file_name, BST_provider& p_tree) const;
         void update_info();
 
         bool check_service_code(int service_code); 
@@ -186,6 +195,8 @@ class provider: public model
         void display_directory();
         void write_file();
         bool verify_provider_ID(int ID);
+
+        void set_service_provided(service_list* list);
 
         int get_provider_ID() const;
         int get_num_consul() const;
