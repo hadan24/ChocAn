@@ -269,7 +269,7 @@ void print_welcome()
 {
     cout << "Welcome to ChocAn!" << endl << endl;
     cout << "[1] Provider Menu\n\n [2] Member Menu\n\n [3] Manager Menu\n\n";
-    cout << "Please enter your ID number: ";
+    cout << "Please enter a menu index from the above list: ";
 }
 
 void member_menu() 
