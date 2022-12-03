@@ -42,6 +42,7 @@ void provider:: input()
     cin >> total_fee;
 
     cout << "\n\tThe service list:  ";
+    service_provided = new service_list();
     service_provided -> add_new_service_record();
                                 
 }

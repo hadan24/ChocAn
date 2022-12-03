@@ -6,14 +6,14 @@ int main()
 {
     cout << "Did somebody say...chocolate?" << endl;
     
-    // testing member class 
-    member test_mem;
-    // test_mem.input();
-    // test_mem.display();
-    // //test_mem.update_status();
-    // test_mem.update_info();
-    // test_mem.display();
-    test_mem.read_file("data_member.txt");
+    // // testing member class 
+    // member test_mem;
+    // // test_mem.input();
+    // // test_mem.display();
+    // // //test_mem.update_status();
+    // // test_mem.update_info();
+    // // test_mem.display();
+    // test_mem.read_file("data_member.txt");
 
 //    service_list *s1 = new service_list;
 
@@ -84,6 +84,7 @@ int main()
     provider* provider_ptr;
     member choc_member;
     member* member_ptr;
+
     manager choc_manager;
 
     /*Structures Block*/
@@ -102,6 +103,7 @@ int main()
             provider_menu();
             cout << "Select a Function: ";
             menu_input = query_menu();
+            cout << "******display menu_input: " << menu_input << endl;
             switch(menu_input) {
                 case 's':
                     cout << "Please enter the ID of the member you would " <<
