@@ -8,20 +8,21 @@ provider::provider() : num_consul(000), total_fee(000), provider_ID(000) , servi
 }
 
 // copy constructor for provider class
-provider::provider(const provider &copy) : model(copy), num_consul(copy.num_consul), total_fee(copy.total_fee), provider_ID(copy.provider_ID)
+provider::provider(const provider &copy) : model(copy), num_consul(copy.num_consul),
+	total_fee(copy.total_fee), provider_ID(copy.provider_ID)
 {
     this -> service_provided = new service_list(*copy.service_provided);
 }
-provider:: provider (const string& p_first, const string& p_last,
-                    const string & p_address,const string & p_city,const string & p_state,int p_zip,
-                    const string & p_email, int num_consul,  int p_ID,float total_fee, service_list *list)
+provider:: provider (const string& p_first, const string& p_last, const string & p_address, const string & p_city,
+	const string & p_state,int p_zip, const string & p_email, int num, int p_ID,float fee, service_list *list) : 
+	model(p_first, p_last, p_address, p_state, p_city, p_zip, p_email), num_consul(num), provider_ID(p_ID), total_fee(fee)
 {
 
 }
 provider::~provider()
 {
     if (service_provided) {
-        delete service_provided;
+        //delete service_provided;
         service_provided = NULL;
     }
 }
