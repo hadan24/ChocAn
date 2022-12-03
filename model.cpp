@@ -1,13 +1,3 @@
-/*
-    11.29.2022 @aho
-        working on input() for model
-        checking data input is valid or not!
-        email input valid ref: https://www.geeksforgeeks.org/check-if-given-email-address-is-valid-or-not-in-cpp/
-    11.30.2022 @aho
-        adding info for display and update_info func in the model class
-        also checking bad inputs.
-
-*/
 #include "chocan.h"
 #include <regex>
 

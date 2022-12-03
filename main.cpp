@@ -1,80 +1,10 @@
-// Run test:     vim
 #include "main.h"
-
 
 int main()
 {
     cout << "Did somebody say...chocolate?" << endl;
-    
-    // testing member class 
-    member test_mem;
-    // test_mem.input();
-    // test_mem.display();
-    // //test_mem.update_status();
-    // test_mem.update_info();
-    // test_mem.display();
-    test_mem.read_file("data_member.txt");
 
-//    service_list *s1 = new service_list;
-
-//    s1->add_new_service_record();
-//    s1->display_all_services();
-//    s1->add_new_service_record();
-//    s1->add_new_service_record();
-
-  
-
-
-/* Leaving all these comments here for now for future reference of testing or how to use classes - Dan
-    // testing member class 
-    // member test_mem;
-    // test_mem.input();
-    // test_mem.display();
-    // test_mem.update_status();
-    // test_mem.display();
-
-    how to run manager class
-    base 
-	BST_provider * provider_management;		// control all the list of providers 
-	BST_member * member_management;			// control all the list of members 
-	manager test_manager;					// assume one manager
- 	member * test_mem;
-	provider * test_provider; 
-
-    how manager requests to add a new provider. it should be the same as the mem
-    manager has the add provider function. We pass the new provider obj to the function, then add into a leaf. : ) 
-
-    test_manager.add_provider(provider_management);   // call the from manager class
-
-    at the manager class: 
-        add_proivder(BST_provider *& provider_management)
-        {
-            // create a new object of provider. 
-            provider * new_provider_object = new provider(); // allocate memory because each memory will hold one provider obj basically  
-            new_provider_object->input(); // this new provider obj will store all the info data
-
-            // add_Into_Tree is a function from BST_provider 
-                provider_management->add_Into_Tree(new_provider_object); 
-
-                // root->provider_data = new_provider_object  // passing a new object into a new node.
-                ...
-        }
-
-   // same as for the member
-   test_manager.add_member(member_management); 
-*/
-//Linh Nguyen
-    // This help to display summary report weekly of provider
-  /* BST_provider p;
-    provider aProvider;
-    int count;
-    
-    count = p.count_nodes();
-    cout << "\n\tProvider Summary Report Weekly";
-
-	// Ryan's menu stuff
-
-    General Variables Block*/
+    /*General Variables Block*/
     int menu_ID; //This variable is for testing the menu: this would be the class member's ID
     char menu_input;
     int tempID; //Variable for individual cases that need an ID input
@@ -88,12 +18,14 @@ int main()
 
     /*Structures Block*/
     BST_member member_tree;
-    
     BST_provider provider_tree;
 
+    /* Service Block*/
     service_list serve_list;
-    service_list* serve_list_ptr = &serve_list;
     service_directory serve_dir;
+
+    load_member_data("data_member.txt", member_tree);
+    //load_provider_data("provider.txt", provider_tree);
 
 
     print_header();
@@ -101,6 +33,9 @@ int main()
     print_welcome();
     menu_ID = query_ID();
 
+    /* 
+        Provider Menu
+    */
     if (menu_ID == 1) {
         do {
             provider_menu();
@@ -127,8 +62,13 @@ int main()
                     }
                     cout << "Searching ID..." << endl;
                     break;
+
                 // case 'c':
-                //     cout << "Charging Member..." << endl;  *No built functionality?*
+                    /*
+                        Charging members case was never implemented
+                        In a way that could be called by a user
+                    */
+                //     cout << "Charging Member..." << endl; 
                 //     break;
                 case 'd':
                     cout << "Displaying Provider Directory" << endl << endl;
@@ -139,11 +79,7 @@ int main()
                 case 'a':
                     choc_member.input();
                     member_ptr = &choc_member;
-                    member_ptr->set_service_provided(serve_list_ptr);
                     member_tree.add_new_member_(member_ptr);
-                    // member_ptr = new member;
-                    // member_ptr->input();
-                    // member_tree.add_new_member_(member_ptr);
                     cout << "Adding Member..." << endl;
                     break;
                 case 'r':
@@ -174,7 +110,7 @@ int main()
                     break;
                 case 'o':
                     /*
-                        No functionality yet
+                        No integrated functionality yet
                     */
                     cout << "Requesting Provider Report" << endl;
                     break;
@@ -188,6 +124,9 @@ int main()
         } while (menu_input != 'q');
 
     }
+    /*
+        Member Menu
+    */
     else if (menu_ID == 2) {
         do {
             member_menu();
@@ -195,9 +134,27 @@ int main()
             menu_input = query_menu();
             switch (menu_input) {
                 case 's':
+                    cout << "Please enter your member ID: ";
+                    tempID = query_ID();
+                    if (member_tree.search_by_ID(tempID)) {
+                        member_ptr = member_tree.retrieve_member(tempID);
+                        member_ptr->set_service_list();
+                    }
+                    else {
+                        cout << "Member ID not found..." << endl;
+                    }
                     cout << "Requesting service..." << endl << endl;
                     break;
                 case 'r':
+                    cout << "Please enter your member ID: ";
+                    tempID = query_ID();
+                    if (member_tree.search_by_ID(tempID)) {
+                        member_ptr = member_tree.retrieve_member(tempID);
+                        member_ptr->display();
+                    }
+                    else {
+                        cout << "Member ID not found..." << endl;
+                    }
                     cout << "Requesting Report..." << endl << endl;
                     break;
                 case 'q':
@@ -209,6 +166,9 @@ int main()
             }
         } while (menu_input != 'q');
     }
+    /*
+        Manager Menu
+    */
     else if (menu_ID == 3) {
         do {
             manager_menu();
@@ -217,14 +177,13 @@ int main()
             switch (menu_input) {
                 case 'p':
                     /*
-                        No functionality yet
+                        No Integrated functionality yet
                     */
                     cout << "Printing Weekly Report" << endl;
                     break;
                 case 'a':
                     choc_member.input();
                     member_ptr = &choc_member;
-                    member_ptr->set_service_provided(serve_list_ptr);
                     member_tree.add_new_member_(member_ptr);
                     cout << "Adding Member" << endl;
                     break;
@@ -241,7 +200,6 @@ int main()
                 case 'k':
                     choc_provider.input();
                     provider_ptr = &choc_provider;
-                    provider_ptr->set_service_provided(serve_list_ptr);
                     provider_tree.add_new_provider_(provider_ptr);
                     cout << "Adding Provider..." << endl;
                     break;
@@ -309,8 +267,9 @@ void print_header()
 
 void print_welcome()
 {
-    cout << "Welcome to ChocAn!" << endl << endl
-         << "Please enter your ID number: ";
+    cout << "Welcome to ChocAn!" << endl << endl;
+    cout << "[1] Provider Menu\n\n [2] Member Menu\n\n [3] Manager Menu\n\n";
+    cout << "Please enter a menu index from the above list: ";
 }
 
 void member_menu() 
@@ -365,7 +324,7 @@ void manager_menu()
     print_line_break();
     cout << "u: Update Member Information" << endl;
     print_line_break();
-    cout << "s: Update Provider Information [Nonfunctional]" << endl;
+    cout << "s: Update Provider Information" << endl;
     print_line_break();
     cout << "q: Quit" << endl << endl;
     print_line_break();
@@ -393,5 +352,30 @@ char query_menu()
     cout << endl;
     return tolower(tempInput);
 }
+
+/*****************************************************/
+
+/*******************************************************
+    Loads member data from a text file into a member BST
+********************************************************/
+void load_member_data(string file, BST_member& m_tree)
+{
+    member temp_reader;
+
+    temp_reader.read_file(file, m_tree);
+}
+
+/****************************************************
+    Loads provider data from a text file into a BST.
+    Breaks all of our code for some reason. Unable to
+    determine a solution
+*****************************************************/
+void load_provider_data(string file, BST_provider& p_tree)
+{
+    provider temp_reader;
+
+    temp_reader.read(file, p_tree);
+}
+
 
 

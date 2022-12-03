@@ -4,11 +4,14 @@
 #define NAME_SZ 20
 #define COMMENT_SZ 100
 
-service_directory available_services;
-
 service_list::service_list() {}
+service_list::service_list(const service_list &copy) 
+{
+	this->list = copy.list;
+	
+}
 
-service_list::service_list(const service_list &copy): list(copy.list) {}
+service_directory available_services;
 
 void service_list::add_new_service_record()
 {
@@ -71,9 +74,7 @@ void service::create()
 	} while (true);
 	if ('Y' == resp || 'y' == resp) {
 		cout << "\n\tPlease enter them here: (500 character limit)\n";
-		cin.ignore(100, '\n');
 		getline(cin, comments, '\n');
-		cin.ignore(500, '\n');
 	}
 
 	get_curr_date();
@@ -203,41 +204,40 @@ int service::parse_date(string date)
 bool service::check_date(string m, string d, string y)
 {
 	int month = parse_date(m), day = parse_date(d), year = parse_date(y);
-	int valid = 2;
 
-	if (month < ('0'*10)+'1' || month > ('1'*10)+'2' || day < ('0'*10)+'1')
-		valid = false;
+	if (month < '1' || month > ('1'*10)+'2' || day < '1')
+		return false;
 
 	switch(month) {
-		case ('0'*10)+'1':
-		case ('0'*10)+'3':
-		case ('0'*10)+'5':
-		case ('0'*10)+'7':
-		case ('0'*10)+'8':
+		case '1':
+		case '3':
+		case '5':
+		case '7':
+		case '8':
 		case ('1'*10)+'0':
 		case ('1'*10)+'2':
 			if (day > ('3'*10)+'1')
-				valid = false;
+				return false;
 			break;
-		case ('0'*10)+'4':
-		case ('0'*10)+'6':
-		case ('0'*10)+'9':
+		case '4':
+		case '6':
+		case '9':
 		case ('1'*10)+'1':
 			if (day > ('3'*10)+'0')
-				valid = false;
+				return false;
 			break;
-		case ('0'*10)+'2':
+		case '2':
 			if (day > ('2'*10)+'8')
-				valid = false;
+				return false;
 			break;
 		default:
-			valid = false;
+			return false;
 	}
 
 	if (year < parse_date("1970") || year > parse_date("2023"))
-		valid = false;
+		return false;
 
-	return valid;
+	return true;
 }
 
 string service::prep_str(string to_prep)
@@ -266,7 +266,9 @@ void service::capitalize_name()
 service_directory::service_directory()
 {
 	// attempt to access database to load services
-	ifstream ifile("databases/available_services.txt", ios_base::in);
+	//ifstream ifile("databases/available_services.txt", ios_base::in);
+	ifstream ifile;
+	ifile.open("databases/available_services.txt");
 	if (!ifile) {
 		cerr << "\n\nCould not connect to services database.\n\n";
 		ifile.close();

@@ -8,9 +8,11 @@
 #include <vector>
 #include <iomanip>
 #include <fstream>
-#include <sstream>
 
 using namespace std;
+
+class BST_member;
+class BST_provider;
 
 // Inheritance 
 //            Model
@@ -148,25 +150,20 @@ class member: public model  // @anhho
 
         ~member();
         void input();
-	void set_input(int ID, bool status, float fee);
-        void display(std::ostream&) const;
-        void read_file(const string& file_name) const;
+        void display() const;
+        void read_file(const string& file_name, BST_member& m_tree) const;
         void update_info();
 
         bool verify_ID(int ID_check);
         bool update_status();
         bool display_summary();
         void write_reports();
-	
-	//setters
-	void set_ID(int ID);
-	void set_status(bool choice);
-        void set_service_provided(service_list* list);
 
-	//getters
+        void set_service_provided(service_list* list);
+        void set_service_list();
+
         float get_fee_mem();
-        int get_member_ID();   
-	bool get_status_mem();
+        int get_member_ID();    // provider may need this.. hmm.. 
 
         //operator overloading
         bool operator<(const member &to_compare) const; //sorting by ID member
@@ -190,9 +187,8 @@ class provider: public model
         provider(const string&, const string&,const string &,const string &,const string &, int, const string &, int, int, float, service_list*);
         ~provider();
         void input();
-	void setInput(int ID, int num, int fee);
-	void display(std::ostream&) const;
-        void read(const string& file_name) const;
+        void display() const;
+        void read(const string& file_name, BST_provider& p_tree) const;
         void update_info();
 
         bool check_service_code(int service_code); 
@@ -206,7 +202,6 @@ class provider: public model
         int get_provider_ID() const;
         int get_num_consul() const;
         float get_total_fee() const;
-	void set_ID(int ID);
 
         //operator overloading
         bool operator>(const provider & to_compare) const;

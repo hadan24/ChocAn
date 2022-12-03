@@ -1,13 +1,6 @@
 #include "bst.h"
 
 /*
-    -------------------------
-    Thomas Brooks
-    Revision date: 11/22/2022
-    -------------------------
-*/
-
-/*
     ----------------------------
     Provider tree implementation
     ---------------------------- 
@@ -43,7 +36,7 @@ provider_node *& provider_node::go_right()
 
 void provider_node::display()
 {
-    provider_data->display(cout);
+    provider_data->display();
 }
 
 /*
@@ -96,7 +89,6 @@ void BST_provider::delete_all(provider_node *& root)
 void BST_provider::add_new_provider_(provider *& to_add)
 {
     add_provider(to_add, root);
-    cout << "\n\t\t[NEW PROVIDER ADDED]\n";
 }
 
 //adding a provider, comparing using operator overloading
@@ -119,7 +111,6 @@ void BST_provider::add_provider(provider *& to_add, provider_node *& root)
 
 bool BST_provider::remove_provider_(int ID)
 {
-    cout << "\n\t\t[PROVIDER REMOVED]" << endl;
     return remove_provider(ID, root);
 }
 
@@ -347,7 +338,7 @@ member_node *& member_node::go_right()
 
 void member_node::display()
 {
-    member_data->display(cout);
+    member_data->display();
 }
 
 /*
@@ -398,7 +389,6 @@ void BST_member::delete_all(member_node *& root)
 void BST_member::add_new_member_(member *& to_add)
 {
     add_member(to_add, root);
-    cout << "\n\t\t[NEW MEMBER ADDED]" << endl;
 }
 
 void BST_member::add_member(member *& to_add, member_node *& root)
@@ -419,7 +409,6 @@ void BST_member::add_member(member *& to_add, member_node *& root)
 
 bool BST_member::remove_member_(int ID)
 {
-    cout << "\n\t\t[MEMBER REMOVED]" << endl;
     return remove_member(ID, root);
 }
 
