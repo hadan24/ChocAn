@@ -267,8 +267,9 @@ void print_header()
 
 void print_welcome()
 {
-    cout << "Welcome to ChocAn!" << endl << endl
-         << "Please enter your ID number: ";
+    cout << "Welcome to ChocAn!" << endl << endl;
+    cout << "[1] Provider Menu\n\n [2] Member Menu\n\n [3] Manager Menu\n\n";
+    cout << "Please enter your ID number: ";
 }
 
 void member_menu() 
@@ -323,7 +324,7 @@ void manager_menu()
     print_line_break();
     cout << "u: Update Member Information" << endl;
     print_line_break();
-    cout << "s: Update Provider Information [Nonfunctional]" << endl;
+    cout << "s: Update Provider Information" << endl;
     print_line_break();
     cout << "q: Quit" << endl << endl;
     print_line_break();
