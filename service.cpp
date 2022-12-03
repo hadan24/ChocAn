@@ -12,7 +12,7 @@ void service_list::add_new_service_record()
 	temp.create();
 
 	vector<service>::iterator t = list.begin();
-	while ( ((*t).compare_dates(temp)) <= 0 )
+	while ( t < list.end() && ((*t).compare_dates(temp)) <= 0 )
 		t++;
 
 	list.insert(t, temp);
