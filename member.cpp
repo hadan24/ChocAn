@@ -189,6 +189,11 @@ void member::set_service_provided(service_list* list)
     this->service_provided = list;
 }
 
+void member::set_service_list()
+{
+    this->service_provided->add_new_service_record();
+}
+
 int member::get_member_ID(){ return this->member_ID;}
 
 float member::get_fee_mem(){return this->fee_mem;}

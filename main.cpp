@@ -33,6 +33,9 @@ int main()
     print_welcome();
     menu_ID = query_ID();
 
+    /* 
+        Provider Menu
+    */
     if (menu_ID == 1) {
         do {
             provider_menu();
@@ -121,6 +124,9 @@ int main()
         } while (menu_input != 'q');
 
     }
+    /*
+        Member Menu
+    */
     else if (menu_ID == 2) {
         do {
             member_menu();
@@ -128,10 +134,27 @@ int main()
             menu_input = query_menu();
             switch (menu_input) {
                 case 's':
-
+                    cout << "Please enter your member ID: ";
+                    tempID = query_ID();
+                    if (member_tree.search_by_ID(tempID)) {
+                        member_ptr = member_tree.retrieve_member(tempID);
+                        member_ptr->set_service_list();
+                    }
+                    else {
+                        cout << "Member ID not found..." << endl;
+                    }
                     cout << "Requesting service..." << endl << endl;
                     break;
                 case 'r':
+                    cout << "Please enter your member ID: ";
+                    tempID = query_ID();
+                    if (member_tree.search_by_ID(tempID)) {
+                        member_ptr = member_tree.retrieve_member(tempID);
+                        member_ptr->display();
+                    }
+                    else {
+                        cout << "Member ID not found..." << endl;
+                    }
                     cout << "Requesting Report..." << endl << endl;
                     break;
                 case 'q':
@@ -143,6 +166,9 @@ int main()
             }
         } while (menu_input != 'q');
     }
+    /*
+        Manager Menu
+    */
     else if (menu_ID == 3) {
         do {
             manager_menu();

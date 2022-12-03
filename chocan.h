@@ -160,6 +160,7 @@ class member: public model  // @anhho
         void write_reports();
 
         void set_service_provided(service_list* list);
+        void set_service_list();
 
         float get_fee_mem();
         int get_member_ID();    // provider may need this.. hmm.. 
