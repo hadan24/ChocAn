@@ -33,20 +33,26 @@ void model::input()
     bool check_email = false;
     bool check_zipcode = false;
 
-    cout << "\n\n\tEnter your fist name        : ";
+    cout << "\n\n\tEnter your first name: ";
     getline(cin, first_name);
+    cin.ignore();
 
-    cout << "\tEnter your last name        : ";
+    cout << "\tEnter your last name: ";
     getline(cin, last_name);
+    cin.ignore();
 
-    cout << "\tEnter your home address     : ";
+    cout << "\tEnter your home address: ";
     getline(cin, address);
+    cin.ignore();
 
-    cout << "\tEnter your city             : ";
+    cout << "\tEnter your city: ";
     getline(cin, city);
+    cin.ignore();
 
-    cout << "\tEnter your state            : ";
+    cout << "\tEnter your state: ";
     getline(cin, state);
+    cin.ignore(1000, '\n');
+
 
     //,, zipcode input
     do
