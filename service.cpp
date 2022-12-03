@@ -4,6 +4,13 @@
 #define NAME_SZ 20
 #define COMMENT_SZ 100
 
+service_list::service_list() {}
+service_list::service_list(const service_list &copy) 
+{
+	this->list = copy.list;
+	
+}
+
 service_directory available_services;
 
 void service_list::add_new_service_record()
@@ -12,7 +19,7 @@ void service_list::add_new_service_record()
 	temp.create();
 
 	vector<service>::iterator t = list.begin();
-	while ( ((*t).compare_dates(temp)) <= 0 )
+	while ( t < list.end() && ((*t).compare_dates(temp)) <= 0 )
 		t++;
 
 	list.insert(t, temp);
@@ -121,13 +128,16 @@ void service::enter_date()
 	char valid = 0;
 	cout << "\n\tDate of service (MM-DD-YYYY):  ";
 	do {
+		cin.ignore(100, '\n');
 		getline(cin, m, '-');
 		getline(cin, d, '-');
 		getline(cin, y, '\n');
 
 		valid = check_date(m, d, y);
-		if (!valid)
+		if (!valid) {
 			cout << "\n\tInvalid date. Please check your entry and try again.\n" << endl;
+			cout << "\tRe-enter Date of service (MM-DD-YYYY): ";
+		}
 	} while (!valid);
 
 	date_of_service = m + "-" + d + "-" + y;
@@ -140,8 +150,10 @@ void service::get_service_dir_data()
 		getline(cin, name, '\n');
 		code = available_services.find_code_by_name(prep_str(name));
 		
-		if (code < 0)
+		if (code < 0) {
 			cout << "\n\tInvalid service name. Please check your entry and try again.\n" << endl;
+			cout << "\tRe-enter name of service provided:  ";
+		}
 	} while (code < 0);
 	cost = available_services.find_cost_by_name(name);
 	capitalize_name();
@@ -254,7 +266,9 @@ void service::capitalize_name()
 service_directory::service_directory()
 {
 	// attempt to access database to load services
-	ifstream ifile("databases/available_services.txt", ios_base::in);
+	//ifstream ifile("databases/available_services.txt", ios_base::in);
+	ifstream ifile;
+	ifile.open("databases/available_services.txt");
 	if (!ifile) {
 		cerr << "\n\nCould not connect to services database.\n\n";
 		ifile.close();
